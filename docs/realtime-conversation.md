@@ -6,7 +6,7 @@ outside this phase. The host publishes its composed output through the small cam
 
 ## Public OpenAI transport
 
-The host depends on the `RealtimeConversationClient` protocol in `AICameraCore`. Its native
+The host depends on the `RealtimeConversationClient` protocol in `ExoCameraCore`. Its native
 implementation connects directly to `wss://api.openai.com/v1/realtime?model=…`. Credentials are
 resolved from Keychain or an environment reference. They never enter profile JSON or the
 session/model context. The host waits for `session.updated` before arming input.
@@ -29,16 +29,16 @@ and [Realtime conversation guide](https://developers.openai.com/api/docs/guides/
 ## Deliberate conversation activation
 
 Hold a victory sign for about one second with Gestures enabled, or choose **Start agent** in
-AI Camera's menu. Both use the same host conversation path while QuickTime or another app consumes
+Exo Camera's menu. Both use the same host conversation path while QuickTime or another app consumes
 the virtual camera. The popup's local Test camera and Test microphone controls are independent.
 Activation starts the selected physical microphone when needed; receiving-app microphone demand
-continues independently. A call selecting **AI Camera Microphone** receives the mixed microphone
+continues independently. A call selecting **Exo Camera Microphone** receives the mixed microphone
 and agent reply, and the agent reply also plays locally without microphone monitoring.
 
 The outgoing image shows an animated status orb below the top-right client-title-bar margin:
 Agent off, Connecting, Listening, Not listening, Thinking, Speaking, Muted, or Agent unavailable. A victory/fist
 hold shows progress; uncertain poses ask for a clearer hand. The orb and title follow Overlays →
-Show Status. Connection failures also leave their details in the AI Camera menu. The native status
+Show Status. Connection failures also leave their details in the Exo Camera menu. The native status
 layer is independent of model-generated overlays and is never included in clean inference frames.
 
 Hand confidence averages the required usable landmarks, so a single partly hidden folded joint
@@ -55,7 +55,7 @@ Stop agent, fist mute, teardown, failure, and configuration/routing changes canc
 reject late work. Stop releases only agent-owned microphone demand. Changing a call's microphone
 routing rebuilds the media graph and requires explicitly starting the agent again.
 
-Hold a fist to mute audio, stop the agent, and clear captions. Unmute explicitly in AI Camera;
+Hold a fist to mute audio, stop the agent, and clear captions. Unmute explicitly in Exo Camera;
 victory cannot silently unmute. Receiving apps' own mute buttons are not currently synchronized.
 
 ### Keep talking to the other people on the call
@@ -70,7 +70,7 @@ rearm behavior) and **One question at a time**. The latter closes agent input wh
 ends and waits for Ask again after answering. The outgoing status orb then says **Not listening**.
 The agent session retains its context. Configured independent transcription resumes while the
 agent is paused after its reply; it may still use OpenAI if that is your selected transcription
-provider. Agent input pause is separate from AI Camera's audio/caption privacy mute.
+provider. Agent input pause is separate from Exo Camera's audio/caption privacy mute.
 
 Control–Option–L uses L for listening and leaves the macOS
 [input-language shortcut](https://support.apple.com/en-au/guide/mac-help/mchlp1406/mac) available.
@@ -109,7 +109,7 @@ Optional `id` on save edits an existing note; deletion requires an exact UUID. L
 most five matching notes, newest first. The **Notes** footer button opens a window for writing,
 editing, searching, and deleting without starting the agent or camera.
 
-Only requested note text is saved, at `~/Library/Application Support/AI Camera/Notes/notes.json`.
+Only requested note text is saved, at `~/Library/Application Support/Exo Camera/Notes/notes.json`.
 There are at most 100 notes of 2,000 UTF-8 bytes each. Writes are atomic and the file is owner-only.
 An unreadable notebook is preserved instead of silently replaced. It is ordinary local storage,
 not an encrypted vault. A requested note lookup returns matching text to the active Realtime
@@ -188,7 +188,7 @@ change is required. Supported targets come from the same language catalog as the
 “Translate into Spanish” can set both `enabled: true` and `targetLanguage: "es"`; “Turn translation
 off” changes only the quick control. Changing a selected language alone leaves the on/off state
 alone. Enabling requires a ready model. These tools neither download/enable an unconfigured
-feature nor unmute AI Camera. Their output is captions, not spoken translation.
+feature nor unmute Exo Camera. Their output is captions, not spoken translation.
 
 The remaining voice-output work has a separate [spoken-translation design](spoken-translation-design.md)
 covering original/translated audio, independent agent input, local monitoring, and output ownership.
@@ -207,7 +207,7 @@ Unknown tools, unknown argument fields, malformed JSON, non-string scripts, non-
 TTLs, and out-of-range TTLs are rejected. Script and argument byte limits are separate. Omitted
 TTL uses the configured default. The transport admits at most eight unique tool calls per turn.
 
-The host owns the 640 × 360 transparent canvas, mirror description, available THREE/AICamera APIs,
+The host owns the 640 × 360 transparent canvas, mirror description, available THREE/ExoCamera APIs,
 TTL, script size, replacement behavior, and scene-data permission. Scripts cannot choose another
 canvas or fetch external assets. The existing CSP, navigation restrictions, non-persistent WebKit
 store, TTL, fresh-frame expiry, and crash handling remain required. Tools receive no raw frames.
@@ -241,7 +241,7 @@ is not implemented, and the camera inset does not perform face tracking.
 ## Dedicated Codex login
 
 The installed official Codex CLI owns an isolated device-login, refresh, and sign-out lifecycle
-for AI Camera. It uses a separate home and Keychain item; the desktop agent's login is not copied
+for Exo Camera. It uses a separate home and Keychain item; the desktop agent's login is not copied
 or rotated. The app reads the current access token only into memory for public Realtime. It never
 falls back to a saved API key when Codex is selected. See [authentication details](codex-login.md).
 

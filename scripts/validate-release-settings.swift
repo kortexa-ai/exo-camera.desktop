@@ -1,17 +1,26 @@
-import AICameraCore
-import AICameraReleaseCore
+import ExoCameraCore
+import ExoCameraReleaseCore
 import Foundation
 
 // Both code generations read a single disposable synthetic settings file. No user settings,
 // defaults domain, Keychain, model, network, device, or installed app is accessed.
 @main
 struct ReleaseSettingsValidation {
-    typealias Current = AICameraCore.AICameraConfiguration
-    typealias Released = AICameraReleaseCore.AICameraConfiguration
+    typealias Current = ExoCameraCore.ExoCameraConfiguration
+    typealias Released = ExoCameraReleaseCore.AICameraConfiguration
     struct Failure: Error { let message: String }
 
     static func require(_ value: Bool, _ message: String) throws {
         if !value { throw Failure(message: message) }
+    }
+
+    static let legacyAudioDeviceUID = "ai.kortexa.aicamera.audio.device"
+
+    /// 0.2.0 settings as they read after the rename: only the virtual microphone UID differs.
+    static func releasedWithCurrentAudioUID(_ value: Released) -> Released {
+        var value = value
+        value.capture.virtualAudioOutputDeviceID = Current.default.capture.virtualAudioOutputDeviceID
+        return value
     }
 
     static func main() throws {
@@ -20,25 +29,29 @@ struct ReleaseSettingsValidation {
         guard !FileManager.default.fileExists(atPath: url.path) else {
             throw Failure(message: "Refusing to replace an existing file")
         }
-        let currentStore = AICameraCore.ConfigurationStore(fileURL: url)
-        let releasedStore = AICameraReleaseCore.ConfigurationStore(fileURL: url)
+        let currentStore = ExoCameraCore.ConfigurationStore(fileURL: url)
+        let releasedStore = ExoCameraReleaseCore.ConfigurationStore(fileURL: url)
 
         try releasedStore.save(.default)
-        let upgraded = try currentStore.load()
+        // The app rewrites the legacy AI Camera microphone UID before loading (LegacyAICameraMigration).
+        var upgraded = try currentStore.load()
+        if upgraded.capture.virtualAudioOutputDeviceID == legacyAudioDeviceUID {
+            upgraded.capture.virtualAudioOutputDeviceID = Current.default.capture.virtualAudioOutputDeviceID
+        }
         try require(upgraded == Current.default, "Public default settings changed on upgrade")
         try require(upgraded.pipeline.conversation.agentListeningMode == .conversation,
                     "Upgrade changed the default listening behavior")
         try require(!upgraded.overlays.script.weatherForecastEnabled, "Upgrade enabled remote weather")
 
         try currentStore.save(.default)
-        try require(try releasedStore.load() == Released.default, "Current defaults cannot be read by 0.2.0")
+        try require(try releasedStore.load() == releasedWithCurrentAudioUID(Released.default), "Current defaults cannot be read by 0.2.0")
         var candidate = Current.default
         candidate.profileName = "Synthetic compatibility fixture"
         candidate.capture.mirrorVideo = true
         candidate.pipeline.translation.targetLanguage = "es"
         candidate.pipeline.conversation.agentListeningMode = .oneQuestion
         candidate.overlays.script.enabled = true
-        var expected = Released.default
+        var expected = releasedWithCurrentAudioUID(Released.default)
         expected.profileName = candidate.profileName
         expected.capture.mirrorVideo = true
         expected.pipeline.translation.targetLanguage = "es"
@@ -70,7 +83,7 @@ struct ReleaseSettingsValidation {
         print("Release-settings compatibility passed. No actual settings, installed app, device, credential, or network was used.")
     }
 
-    private static func rejectWeatherWithoutChangingFile(_ store: AICameraReleaseCore.ConfigurationStore,
+    private static func rejectWeatherWithoutChangingFile(_ store: ExoCameraReleaseCore.ConfigurationStore,
                                                           at url: URL) throws {
         let before = try Data(contentsOf: url)
         do {

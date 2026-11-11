@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import Foundation
 
 // Real coordinator, synthetic text/PCM, deliberately cancellation-insensitive model completions.
@@ -62,7 +62,7 @@ private struct QuickControlsValidation {
         let controls = RuntimeFeatureState()
         let privacy = PrivacyMuteState()
         let results = Results(), models = Models()
-        var config = AICameraConfiguration.default
+        var config = ExoCameraConfiguration.default
         config.pipeline.conversation.enabled = false
         config.pipeline.conversation.transcriptionEnabled = true
         config.pipeline.conversation.transcriptionProvider = .whisper

@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import AppKit
 import CoreVideo
 import Foundation
@@ -32,7 +32,7 @@ struct RealtimeToolValidation {
             try await runAssistant(credential: credential, model: model)
             return
         }
-        var profile = AICameraConfiguration.default
+        var profile = ExoCameraConfiguration.default
         profile.overlays.script.enabled = true
         let endpoint = EndpointConfiguration(id: "validation", adapter: .openAIRealtime,
             baseURL: URL(string: "https://api.openai.com")!, model: model, options: ["voice": .string("marin")])
@@ -52,7 +52,7 @@ struct RealtimeToolValidation {
             try await session.connect(session: request)
             let started = Date()
             try await session.requestContinuation([
-                "instructions": "Use render_overlay to draw one solid blue cube at the center. Use THREE.BoxGeometry(1.5,1.5,1.5), THREE.MeshBasicMaterial({color:0x0000ff}), and AICamera.scene.add. Keep the host camera unchanged. Set ttlSeconds to 20. This is a synthetic renderer check.",
+                "instructions": "Use render_overlay to draw one solid blue cube at the center. Use THREE.BoxGeometry(1.5,1.5,1.5), THREE.MeshBasicMaterial({color:0x0000ff}), and ExoCamera.scene.add. Keep the host camera unchanged. Set ttlSeconds to 20. This is a synthetic renderer check.",
                 "tool_choice": ["type": "function", "name": "render_overlay"]
             ])
             var rendered = false, cleared = false, continuationDone = false
@@ -113,11 +113,11 @@ struct RealtimeToolValidation {
     }
 
     @MainActor static func runAssistant(credential: String, model: String) async throws {
-        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("aicamera-provider-notes-" + UUID().uuidString)
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("exocamera-provider-notes-" + UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
         let notes = AgentNoteStore(fileURL: directory.appendingPathComponent("notes.json"))
         let cards = AgentPresentationState()
-        var profile = AICameraConfiguration.default
+        var profile = ExoCameraConfiguration.default
         profile.overlays.script.enabled = true
         let endpoint = EndpointConfiguration(id: "validation", adapter: .openAIRealtime,
             baseURL: URL(string: "https://api.openai.com")!, model: model, options: ["voice": .string("marin")])
@@ -227,10 +227,10 @@ struct RealtimeToolValidation {
         SecKeychainSetUserInteractionAllowed(false)
         if mode == "api-key", let value = ProcessInfo.processInfo.environment["OPENAI_API_KEY"], !value.isEmpty { return value }
         let service: String, account: String
-        if mode == "api-key" { service = "ai.kortexa.aicamera"; account = "openai-realtime" }
+        if mode == "api-key" { service = "ai.kortexa.exocamera"; account = "openai-realtime" }
         else {
             service = "Codex Auth"
-            let home = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support/AI Camera/Codex")
+            let home = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support/Exo Camera/Codex")
             account = CodexAuthPolicy.keychainAccount(canonicalHomePath: home.resolvingSymlinksInPath().path)
         }
         let authentication = LAContext()

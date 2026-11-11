@@ -33,7 +33,7 @@ assert final.startswith('test "$(/usr/libexec/PlistBuddy')
 assert not any(word in final for word in ["codesign", "/bin/mv", "/bin/rm", "sudo", "kill", "chown", "chmod"])
 
 project = (Path(__file__).resolve().parent.parent / "project.yml").read_text()
-extension_target = re.search(r"^  AICameraCameraExtension:\n(.*?)(?=^  \w+:|\Z)", project, re.M | re.S)
+extension_target = re.search(r"^  ExoCameraCameraExtension:\n(.*?)(?=^  \w+:|\Z)", project, re.M | re.S)
 assert extension_target, "Missing camera extension target"
 for setting in ["CURRENT_PROJECT_VERSION", "MARKETING_VERSION"]:
     assert re.search(rf"^        {setting}:\s*\S+", extension_target.group(1), re.M), (
@@ -41,16 +41,16 @@ for setting in ["CURRENT_PROJECT_VERSION", "MARKETING_VERSION"]:
     )
 
 checks = 0
-with tempfile.TemporaryDirectory(prefix="aicamera-version-fixture-") as directory:
+with tempfile.TemporaryDirectory(prefix="exocamera-version-fixture-") as directory:
     app = Path(directory) / "Test App.app"
-    ext = app / "Contents/Library/SystemExtensions/ai.kortexa.aicamera.camera-extension.systemextension"
+    ext = app / "Contents/Library/SystemExtensions/ai.kortexa.exocamera.camera-extension.systemextension"
     (ext / "Contents").mkdir(parents=True)
     environment = dict(os.environ, src=str(app), tmp=str(app), dst=str(app), ext=str(ext),
-                       tmp_ext=str(ext), final_ext=str(ext), expected="ai.kortexa.aicamera",
-                       expected_ext="ai.kortexa.aicamera.camera-extension", version="45", ext_version="44")
+                       tmp_ext=str(ext), final_ext=str(ext), expected="ai.kortexa.exocamera",
+                       expected_ext="ai.kortexa.exocamera.camera-extension", version="45", ext_version="44")
 
-    def write(host="45", camera="44", host_id="ai.kortexa.aicamera",
-              camera_id="ai.kortexa.aicamera.camera-extension"):
+    def write(host="45", camera="44", host_id="ai.kortexa.exocamera",
+              camera_id="ai.kortexa.exocamera.camera-extension"):
         for bundle, version, identifier in [(app, host, host_id), (ext, camera, camera_id)]:
             info = {"CFBundleIdentifier": identifier}
             if version is not None:

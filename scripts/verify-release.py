@@ -17,10 +17,10 @@ def info(bundle):
 
 def verify(app, version, build):
     expected = {
-        app: "ai.kortexa.aicamera",
-        app / "Contents/Library/SystemExtensions/ai.kortexa.aicamera.camera-extension.systemextension":
-            "ai.kortexa.aicamera.camera-extension",
-        app / "Contents/Resources/AICameraAudioDriver.driver": "ai.kortexa.aicamera.audio.driver",
+        app: "ai.kortexa.exocamera",
+        app / "Contents/Library/SystemExtensions/ai.kortexa.exocamera.camera-extension.systemextension":
+            "ai.kortexa.exocamera.camera-extension",
+        app / "Contents/Resources/ExoCameraAudioDriver.driver": "ai.kortexa.exocamera.audio.driver",
     }
     run("codesign", "--verify", "--deep", "--strict", str(app))
     assert info(app)["CFBundleShortVersionString"] == version, "Wrong app version"

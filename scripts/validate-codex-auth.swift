@@ -1,12 +1,12 @@
 // Auth-only native CLI check; never reads the desktop login or requests model generation.
-import AICameraCore
+import ExoCameraCore
 import Foundation
 
 private enum CheckFailure: Error { case unexpectedAccount, malformedLogin, cancellationFailed, stoppedStartupSucceeded }
 
 @main private struct CodexAuthValidation {
     @MainActor static func main() async throws {
-        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("aicamera-codex-check-\(UUID())")
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("exocamera-codex-check-\(UUID())")
         let server = CodexAppServer(home: directory)
         defer { server.stop(); try? FileManager.default.removeItem(at: directory) }
         var cancelledID: String?

@@ -6,7 +6,7 @@ Version 0.2.0 is an early alpha. Security fixes are developed on the `main` bran
 
 ## Media handling
 
-AI Camera processes camera and microphone data in memory. It does not record or persist raw media. The schema contains `persistMedia` for forward compatibility, but the current validator and documentation require it to remain disabled.
+Exo Camera processes camera and microphone data in memory. It does not record or persist raw media. The schema contains `persistMedia` for forward compatibility, but the current validator and documentation require it to remain disabled.
 
 Real-time callbacks copy only bounded buffers needed for processing. Network stages hold at most one active request and one replaceable pending frame. Overlays keep normalized current state and expire it.
 
@@ -27,13 +27,13 @@ Review enabled data routes in Settings → Privacy. A host allowlist controls de
 
 ## Credentials
 
-Profiles store an environment-variable name or Keychain account name. They must not contain secret values. The application resolves Keychain items from service `ai.kortexa.aicamera` at request time.
+Profiles store an environment-variable name or Keychain account name. They must not contain secret values. The application resolves Keychain items from service `ai.kortexa.exocamera` at request time.
 
 Do not put credentials in `Config/Local.xcconfig`, example profiles, source, logs, screenshots, or issue reports. Use Keychain, a local process environment, or CI secret storage.
 
 ## Privileged operations
 
-The app uses Apple’s system-extension API for the camera. The development installer verifies exact Apple-anchored, same-team host and camera-extension requirements before and after copying into a root-private staging directory, strips ACL and write access, serializes transactions, and uses no-follow same-filesystem moves. It protects the installed root and verifies that its inode is the verified staged inode before it commits the build marker. Catchable failures and signals restore the prior app and marker. The developer install uses an administrator-authorized transaction; the signed production package runs the same transaction through macOS Installer. The app uses a separate administrator-authorized command for the HAL driver. Install and removal paths are fixed and shell quoted. The removal command targets only `AICameraAudioDriver.driver`.
+The app uses Apple’s system-extension API for the camera. The development installer verifies exact Apple-anchored, same-team host and camera-extension requirements before and after copying into a root-private staging directory, strips ACL and write access, serializes transactions, and uses no-follow same-filesystem moves. It protects the installed root and verifies that its inode is the verified staged inode before it commits the build marker. Catchable failures and signals restore the prior app and marker. The developer install uses an administrator-authorized transaction; the signed production package runs the same transaction through macOS Installer. The app uses a separate administrator-authorized command for the HAL driver. Install and removal paths are fixed and shell quoted. The removal command targets only `ExoCameraAudioDriver.driver`.
 
 Verify the app’s signature and bundled driver before authorizing installation. Device lifecycle tests are manual and opt-in.
 

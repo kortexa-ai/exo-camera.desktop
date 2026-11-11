@@ -1,6 +1,6 @@
 # Third-party notices
 
-AI Camera's original code is MIT licensed. Each third-party component retains its own license.
+Exo Camera's original code is MIT licensed. Each third-party component retains its own license.
 
 ## Included in the application
 
@@ -17,7 +17,7 @@ AI Camera's original code is MIT licensed. Each third-party component retains it
 
 Model weights are downloaded only when requested; they are not included in the installer.
 Their downloads are pinned and checked by SHA-256. These are third-party models, without
-endorsement of AI Camera by their authors.
+endorsement of Exo Camera by their authors.
 
 - **OpenAI Whisper**, converted by whisper.cpp: MIT.
   https://huggingface.co/ggerganov/whisper.cpp/tree/5359861c739e955e79d9a303bcbc70fb988958b1

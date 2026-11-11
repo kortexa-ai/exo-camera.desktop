@@ -17,7 +17,7 @@ even if original-language captions are paused; translated captions take preceden
 caption controls off, independent ASR stops. Pausing gestures disables recognition, labels, and
 gesture actions without stopping a running agent or camera feed.
 
-**Layout** keeps everything AI Camera draws (captions, status, cards, and script overlays) inside a
+**Layout** keeps everything Exo Camera draws (captions, status, cards, and script overlays) inside a
 centered 4:3 area of the frame, so a call app that crops the camera to 4:3, such as WhatsApp for
 Mac, still shows it; the camera image itself always fills the frame. **Mirror** pre-flips the same
 generated content so text reads correctly in an app that mirrors the camera, as WhatsApp does with
@@ -26,8 +26,8 @@ the outgoing frame, so mirrored text looks reversed there. Both are quick states
 launches and are not part of a saved profile.
 
 **Agent** starts or stops the live conversation; it always starts off after launch. **Mute**
-silences AI Camera Microphone, stops the agent, and hides all speech captions. Unmute is explicit
-and never restarts the agent. Mute protects a call's audio when it uses AI Camera Microphone.
+silences Exo Camera Microphone, stops the agent, and hides all speech captions. Unmute is explicit
+and never restarts the agent. Mute protects a call's audio when it uses Exo Camera Microphone.
 Global **Control–Option–A** toggles the agent and **Control–Option–M** toggles mute while other
 apps have focus. These use registered hotkeys without requesting keyboard-monitoring permission.
 If registration fails, the menu reports the unavailable shortcut; the toolbar still works.
@@ -60,7 +60,7 @@ label identifies the saved choice even while another option is being edited.
 
 The API key is stored in macOS Keychain and shared with OpenAI Transcription. Removing that key
 disables the features using it; an independent Codex login and local models do not depend on it.
-Codex uses a separate login owned by AI Camera, with refresh and sign-out controls. Sign-out turns
+Codex uses a separate login owned by Exo Camera, with refresh and sign-out controls. Sign-out turns
 off Conversation when that login is active. See [authentication boundaries](codex-login.md).
 Realtime access and subscription coverage depend on the account; the app does not promise that
 Realtime audio usage is included in a subscription.
@@ -71,7 +71,7 @@ approval or future availability.
 
 **Test Connection** checks the saved credential and selected model without acquiring the microphone
 or generating a spoken response. **Agent** in the menu toolbar starts a conversation using the selected
-microphone and plays replies through speakers/headphones and AI Camera Microphone when a call
+microphone and plays replies through speakers/headphones and Exo Camera Microphone when a call
 uses it. The session stays active between replies until stopped or muted. The public WebSocket transport uses 24 kHz mono PCM; host conversion
 preserves duration at the audio device's rate. Raw camera frames are not sent by Conversation.
 
@@ -126,7 +126,7 @@ The app has no recording feature.
 The underlying schema-versioned file is stored at:
 
 ```text
-~/Library/Application Support/AI Camera/profile.json
+~/Library/Application Support/Exo Camera/profile.json
 ```
 
 It contains credential references, not secret values. Invalid or newer-schema files are preserved

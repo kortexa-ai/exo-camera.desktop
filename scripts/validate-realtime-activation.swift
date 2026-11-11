@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import Foundation
 
 // Actual WebSocket session with an in-memory socket. No network or credentials are used.

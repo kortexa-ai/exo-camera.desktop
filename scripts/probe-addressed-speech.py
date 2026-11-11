@@ -56,8 +56,8 @@ def parse_label(output):
 
 def invocation_baseline(text):
     # Transparent deliberately small baseline; not a product wake-word feature.
-    starts = re.match(r"^(?:hey\s+)?AI Camera\s*[,，]", text, re.IGNORECASE)
-    ends = re.search(r"[,，]\s*AI Camera[.!?。？]?\s*$", text, re.IGNORECASE)
+    starts = re.match(r"^(?:hey\s+)?Exo Camera\s*[,，]", text, re.IGNORECASE)
+    ends = re.search(r"[,，]\s*Exo Camera[.!?。？]?\s*$", text, re.IGNORECASE)
     return "agent" if starts or ends else "uncertain"
 
 
@@ -151,7 +151,7 @@ def main():
     }
     started = time.monotonic()
     # Reserve a new file before inference; preserve partial evidence if a backend call fails.
-    with args.output.open("x", encoding="utf-8") as evidence, tempfile.TemporaryDirectory(prefix="aicamera-addressed-") as temporary:
+    with args.output.open("x", encoding="utf-8") as evidence, tempfile.TemporaryDirectory(prefix="exocamera-addressed-") as temporary:
         def save():
             evidence.seek(0)
             json.dump(report, evidence, ensure_ascii=False, indent=2)

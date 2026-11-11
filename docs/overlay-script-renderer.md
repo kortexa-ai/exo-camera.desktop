@@ -59,8 +59,8 @@ JavaScript CPU/GPU memory quota. Host queues, frame sizes, and visible overlay l
 
 ## Script contract
 
-Scripts use the existing `THREE` global and `AICamera.scene`, `AICamera.camera`, and
-`AICamera.onFrame(dt => …)`. They must not create another canvas, renderer, page, or frame loop.
+Scripts use the existing `THREE` global and `ExoCamera.scene`, `ExoCamera.camera`, and
+`ExoCamera.onFrame(dt => …)`. They must not create another canvas, renderer, page, or frame loop.
 The bundled PerspectiveCamera starts at `(0, 0, 6)` and looks toward the origin. For example:
 
 ```javascript
@@ -68,8 +68,8 @@ const mesh = new THREE.Mesh(
   new THREE.BoxGeometry(1.5, 1.5, 1.5),
   new THREE.MeshStandardMaterial({ color: 0x8b5cf6 })
 );
-AICamera.scene.add(mesh);
-AICamera.onFrame(dt => { mesh.rotation.y += dt; });
+ExoCamera.scene.add(mesh);
+ExoCamera.onFrame(dt => { mesh.rotation.y += dt; });
 ```
 
 The default is a transparent background. Network requests, external textures, fonts, media,
@@ -77,7 +77,7 @@ iframes, workers, forms, and additional windows are blocked by the page policy a
 Navigation is restricted to the bundled renderer document. WebKit uses nonpersistent storage.
 
 `overlays.script.allowSceneData` defaults to false. When enabled through the retained configuration
-schema, the bridge can read bounded local `AICamera.sceneData`. Host updates are at most 64 KiB,
+schema, the bridge can read bounded local `ExoCamera.sceneData`. Host updates are at most 64 KiB,
 with one JavaScript evaluation active and one replaceable pending snapshot. Scripts never receive
 raw camera frames. Script messages are limited to a short, rate-limited in-memory UI value; they
 are never written to unified logs or a diagnostic file.
@@ -103,7 +103,7 @@ on-screen beneath the desktop with near-zero alpha so WebKit continues rendering
 
 ## Phase 0 spike results (2026-08-19, the development Mac, macOS 26.5 SDK, M4 Pro)
 
-Run: `swift run AICameraOverlaySpike --channel base64 --width <w> --height <h> --mode hidden`
+Run: `swift run ExoCameraOverlaySpike --channel base64 --width <w> --height <h> --mode hidden`
 
 | Config | fps | js render | readPixels | channel xfer | CI composite | frame interval |
 |---|---|---|---|---|---|---|
@@ -111,7 +111,7 @@ Run: `swift run AICameraOverlaySpike --channel base64 --width <w> --height <h> -
 | base64, 1280x720 | 29.5 | 0.20 ms | 2.30 ms (p95 5) | 19.24 ms (p95 20.2) | 2.27 ms (p95 2.9) | 34.0 ms (p95 36) |
 
 Composited sample frames verified visually (rotating cube + ring over synthetic camera
-background, correct alpha, no fringing): `/tmp/aicamera-overlay-spike/base64-{360p-v2,720p}/`.
+background, correct alpha, no fringing): `/tmp/exocamera-overlay-spike/base64-{360p-v2,720p}/`.
 
 **Conclusion:** the pixel path works at 30 fps in both resolutions. Base64 at 360p is cheap
 (~8 ms/frame total); base64 at 720p holds 30 fps but costs ~24 ms/frame (mostly btoa +

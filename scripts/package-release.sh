@@ -13,8 +13,8 @@ RELEASE_COMMIT="$(git rev-parse HEAD)"
 RELEASE_VERSION="$(awk '/MARKETING_VERSION:/ {gsub(/"/, "", $2); print $2; exit}' project.yml)"
 RELEASE_BUILD="$(awk '/CURRENT_PROJECT_VERSION:/ {gsub(/"/, "", $2); print $2; exit}' project.yml)"
 [[ "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ && "$RELEASE_BUILD" =~ ^[0-9]+$ ]]
-NOTARY_PROFILE="${AICAMERA_NOTARY_PROFILE:-notarytool}"
-INSTALLER_IDENTITY="${AICAMERA_INSTALLER_IDENTITY:-}"
+NOTARY_PROFILE="${EXOCAMERA_NOTARY_PROFILE:-notarytool}"
+INSTALLER_IDENTITY="${EXOCAMERA_INSTALLER_IDENTITY:-}"
 if [[ -z "$INSTALLER_IDENTITY" ]]; then
     INSTALLER_IDENTITY="$(security find-identity -v -p basic | sed -n 's/.*"\(Developer ID Installer:.*\)"/\1/p')"
 fi
@@ -25,10 +25,10 @@ echo "Release artifacts: $RELEASE_OUTPUT"
 printf '%s\n' "$RELEASE_COMMIT" > "$RELEASE_OUTPUT/source-commit.txt"
 scripts/validate.sh > "$RELEASE_OUTPUT/validation.log" 2>&1
 scripts/bootstrap.sh
-xcodebuild -project AICamera.xcodeproj -scheme AICamera -configuration Release \
-    -destination 'generic/platform=macOS' -archivePath "$RELEASE_OUTPUT/AICamera.xcarchive" \
+xcodebuild -project ExoCamera.xcodeproj -scheme ExoCamera -configuration Release \
+    -destination 'generic/platform=macOS' -archivePath "$RELEASE_OUTPUT/ExoCamera.xcarchive" \
     -allowProvisioningUpdates archive > "$RELEASE_OUTPUT/archive.log" 2>&1
-ARCHIVED_APP="$RELEASE_OUTPUT/AICamera.xcarchive/Products/Applications/AI Camera.app"
+ARCHIVED_APP="$RELEASE_OUTPUT/ExoCamera.xcarchive/Products/Applications/Exo Camera.app"
 RELEASE_TEAM="$(codesign -d --verbose=4 "$ARCHIVED_APP" 2>&1 | sed -n 's/^TeamIdentifier=//p')"
 [[ "$RELEASE_TEAM" =~ ^[A-Z0-9]+$ ]]
 [[ "$INSTALLER_IDENTITY" == *"($RELEASE_TEAM)" ]]
@@ -37,10 +37,10 @@ import plistlib,sys
 with open(sys.argv[1],'wb') as f:
     plistlib.dump({'method':'developer-id','signingStyle':'automatic','teamID':sys.argv[2]},f)
 PY
-xcodebuild -exportArchive -archivePath "$RELEASE_OUTPUT/AICamera.xcarchive" \
+xcodebuild -exportArchive -archivePath "$RELEASE_OUTPUT/ExoCamera.xcarchive" \
     -exportPath "$RELEASE_OUTPUT/export" -exportOptionsPlist "$RELEASE_OUTPUT/ExportOptions.plist" \
     -allowProvisioningUpdates > "$RELEASE_OUTPUT/export.log" 2>&1
-RELEASE_APP="$RELEASE_OUTPUT/export/AI Camera.app"
+RELEASE_APP="$RELEASE_OUTPUT/export/Exo Camera.app"
 python3 scripts/verify-release.py "$RELEASE_APP" --version "$RELEASE_VERSION" --build "$RELEASE_BUILD" \
     > "$RELEASE_OUTPUT/app-verification.json"
 
@@ -72,15 +72,15 @@ spctl --assess --type execute --verbose=2 "$RELEASE_APP"
 PACKAGE_SCRIPTS="$RELEASE_OUTPUT/package-scripts"
 PACKAGE_RESOURCES="$RELEASE_OUTPUT/package-resources"
 mkdir -p "$PACKAGE_SCRIPTS" "$PACKAGE_RESOURCES"
-ditto "$RELEASE_APP" "$PACKAGE_SCRIPTS/AI Camera.app"
+ditto "$RELEASE_APP" "$PACKAGE_SCRIPTS/Exo Camera.app"
 cp scripts/installer-transaction.applescript "$PACKAGE_SCRIPTS/"
 cp Resources/Installer/postinstall "$PACKAGE_SCRIPTS/"
 chmod 755 "$PACKAGE_SCRIPTS/postinstall"
 cp Resources/Installer/welcome.html Resources/Installer/conclusion.html LICENSE "$PACKAGE_RESOURCES/"
-pkgbuild --nopayload --scripts "$PACKAGE_SCRIPTS" --identifier ai.kortexa.aicamera.installer \
+pkgbuild --nopayload --scripts "$PACKAGE_SCRIPTS" --identifier ai.kortexa.exocamera.installer \
     --version "$RELEASE_VERSION" --sign "$INSTALLER_IDENTITY" --timestamp \
-    "$RELEASE_OUTPUT/AI Camera Component.pkg"
-RELEASE_PACKAGE="$RELEASE_OUTPUT/AICamera-$RELEASE_VERSION.pkg"
+    "$RELEASE_OUTPUT/Exo Camera Component.pkg"
+RELEASE_PACKAGE="$RELEASE_OUTPUT/ExoCamera-$RELEASE_VERSION.pkg"
 productbuild --distribution Resources/Installer/Distribution.xml --resources "$PACKAGE_RESOURCES" \
     --package-path "$RELEASE_OUTPUT" --sign "$INSTALLER_IDENTITY" --timestamp "$RELEASE_PACKAGE"
 python3 scripts/validate-installer-package.py "$RELEASE_PACKAGE" --version "$RELEASE_VERSION" --build "$RELEASE_BUILD"
@@ -93,5 +93,5 @@ python3 scripts/verify-release.py "$RELEASE_APP" --version "$RELEASE_VERSION" --
     > "$RELEASE_OUTPUT/app-verification.json"
 cp "docs/releases/$RELEASE_VERSION.md" "$RELEASE_OUTPUT/RELEASE-NOTES.md"
 cp NOTICE "$RELEASE_OUTPUT/NOTICE"
-(cd "$RELEASE_OUTPUT" && shasum -a 256 "AICamera-$RELEASE_VERSION.pkg" > SHA256SUMS)
+(cd "$RELEASE_OUTPUT" && shasum -a 256 "ExoCamera-$RELEASE_VERSION.pkg" > SHA256SUMS)
 echo "Verified and notarized: $RELEASE_PACKAGE"

@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import AppKit
 import CoreVideo
 import Foundation
@@ -39,7 +39,7 @@ struct OverlayRuntimeValidation {
         for ttl in [Double.nan, .infinity, 0, 61] {
             try require(!renderer.load(script: "1", ttlSeconds: ttl), "Invalid TTL accepted")
         }
-        let red = scene(color: "0xff0000") + "window.retiredMarker = true; setInterval(() => { AICamera.scene.background = new THREE.Color(0xff0000); }, 10);"
+        let red = scene(color: "0xff0000") + "window.retiredMarker = true; setInterval(() => { ExoCamera.scene.background = new THREE.Color(0xff0000); }, 10);"
         let started = Date()
         try require(renderer.load(script: red, ttlSeconds: 15), "First script rejected")
         try await waitForColor(renderer, channel: 2)
@@ -98,9 +98,9 @@ struct OverlayRuntimeValidation {
         defer { feed.cancel() }
         let script = """
         const ball = new THREE.Mesh(new THREE.SphereGeometry(0.2, 24, 16), new THREE.MeshBasicMaterial({color:0xff0000}));
-        AICamera.scene.add(ball);
-        AICamera.onFrame(() => { const face = AICamera.faceAnchor; ball.visible = !!face;
-          if (face) ball.position.copy(AICamera.facePosition(face.center)); });
+        ExoCamera.scene.add(ball);
+        ExoCamera.onFrame(() => { const face = ExoCamera.faceAnchor; ball.visible = !!face;
+          if (face) ball.position.copy(ExoCamera.facePosition(face.center)); });
         """
         try require(renderer.load(script: script, ttlSeconds: 15, followsFace: true), "Face script rejected")
         try require(renderer.latestFreshOverlay() == nil, "Face effect visible before tracking")
@@ -160,7 +160,7 @@ struct OverlayRuntimeValidation {
     }
 
     static func scene(color: String) -> String {
-        "const mesh = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.5, 1.5), new THREE.MeshBasicMaterial({color: \(color)})); AICamera.scene.add(mesh); AICamera.onFrame(dt => { mesh.rotation.y += dt; });"
+        "const mesh = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.5, 1.5), new THREE.MeshBasicMaterial({color: \(color)})); ExoCamera.scene.add(mesh); ExoCamera.onFrame(dt => { mesh.rotation.y += dt; });"
     }
 
     @MainActor static func waitForColor(_ renderer: OverlayScriptRenderer, channel: Int) async throws {

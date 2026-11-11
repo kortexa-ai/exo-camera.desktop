@@ -1,6 +1,6 @@
 // See docs/testing.md for the C bridge and framework compile commands.
 // Uses only the pinned public upstream JFK fixture; never captures media or reads Keychain.
-import AICameraCore
+import ExoCameraCore
 import CryptoKit
 import Darwin
 import Foundation

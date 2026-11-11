@@ -1,6 +1,6 @@
-# Contributing to AI Camera
+# Contributing to Exo Camera
 
-AI Camera is a macOS host app with a deliberately small CoreMediaIO extension and Core Audio
+Exo Camera is a macOS host app with a deliberately small CoreMediaIO extension and Core Audio
 loopback driver. Contributions should preserve its demand-driven lifecycle, bounded media paths,
 and fail-closed privacy model.
 
@@ -24,11 +24,11 @@ installs or activates system software.
 
 ## Repository layout
 
-- `Sources/AICameraCore` — configuration, adapter protocols, privacy gates, and bounded state
-- `Sources/AICameraApp` — macOS UI, capture, rendering, and pipeline coordination
-- `Sources/AICameraCameraExtension` — virtual-camera publication and host-produced frame intake
-- `Sources/AICameraAudioDriver` — virtual-microphone HAL loopback plug-in
-- `Sources/AICameraShared` — small contracts shared with the camera extension
+- `Sources/ExoCameraCore` — configuration, adapter protocols, privacy gates, and bounded state
+- `Sources/ExoCameraApp` — macOS UI, capture, rendering, and pipeline coordination
+- `Sources/ExoCameraCameraExtension` — virtual-camera publication and host-produced frame intake
+- `Sources/ExoCameraAudioDriver` — virtual-microphone HAL loopback plug-in
+- `Sources/ExoCameraShared` — small contracts shared with the camera extension
 - `Tests` — Swift unit tests and the native HAL harness
 - `Resources` — app, extension, driver, and overlay bundle resources
 - `Examples` — validated profiles containing credential references only
@@ -37,7 +37,7 @@ installs or activates system software.
 
 ## Engineering rules
 
-Keep changes small and direct. Put model integrations behind protocols in `AICameraCore`; keep
+Keep changes small and direct. Put model integrations behind protocols in `ExoCameraCore`; keep
 capture and rendering in the host; keep the camera extension limited to publishing host-produced
 frames. Do not introduce unbounded queues or waits on capture, CoreMediaIO, HAL, audio-renderer,
 or other real-time callbacks. Replace, drop, expire, or cancel stale work.

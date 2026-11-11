@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import Foundation
 
 // Real coordinator, synthetic text/PCM, deliberately cancellation-insensitive model completions.
@@ -59,7 +59,7 @@ private struct CaptionPrivacyValidation {
     }
     private static func coordinator(_ gate: PrivacyMuteState, _ results: Results, _ models: Models,
                                     translation: Bool) -> PipelineCoordinator {
-        var config = AICameraConfiguration.default
+        var config = ExoCameraConfiguration.default
         config.pipeline.conversation.enabled = false
         config.pipeline.conversation.transcriptionEnabled = true
         config.pipeline.conversation.transcriptionProvider = .whisper
@@ -126,7 +126,7 @@ private struct CaptionPrivacyValidation {
     }
     private static func realtimeGestureChecks() async throws {
         let gate = PrivacyMuteState(), results = Results()
-        var config = AICameraConfiguration.default
+        var config = ExoCameraConfiguration.default
         config.pipeline.conversation.enabled = true
         config.pipeline.conversation.realtimeEnabled = true
         let pipeline = PipelineCoordinator(configuration: config, secrets: NoSecrets(), privacyMute: gate,

@@ -7,13 +7,13 @@
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
-    <string>ai.kortexa.aicamera.audio.driver</string>
+    <string>ai.kortexa.exocamera.audio.driver</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
-    <string>AI Camera Audio Driver</string>
+    <string>Exo Camera Audio Driver</string>
     <key>CFBundleDisplayName</key>
-    <string>AI Camera Audio Driver</string>
+    <string>Exo Camera Audio Driver</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>CFBundleShortVersionString</key>
@@ -22,18 +22,18 @@
     <string>$(CURRENT_PROJECT_VERSION)</string>
     <key>CFBundleSignature</key>
     <string>????</string>
-    <!-- UUIDv5(NAMESPACE_DNS, "ai.kortexa.aicamera.audio.factory"). -->
+    <!-- UUIDv5(NAMESPACE_DNS, "ai.kortexa.exocamera.audio.factory"). -->
     <key>CFPlugInFactories</key>
     <dict>
-        <key>AB727211-BFF9-5768-938A-077B420C0F0D</key>
-        <string>AICameraAudioDriver_Create</string>
+        <key>1957CEC0-BA70-521C-953D-598203AF48AC</key>
+        <string>ExoCameraAudioDriver_Create</string>
     </dict>
     <key>CFPlugInTypes</key>
     <dict>
         <!-- kAudioServerPlugInTypeUUID; this UUID is fixed by Core Audio. -->
         <key>443ABAB8-E7B3-491A-B985-BEB9187030DB</key>
         <array>
-            <string>AB727211-BFF9-5768-938A-077B420C0F0D</string>
+            <string>1957CEC0-BA70-521C-953D-598203AF48AC</string>
         </array>
     </dict>
     <key>LSMinimumSystemVersion</key>

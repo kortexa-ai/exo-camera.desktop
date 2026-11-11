@@ -1,15 +1,15 @@
-# AI Camera
+# Exo Camera
 
 **Your camera, with a little AI.**
 
 Live captions, translation, gestures, and a voice agent in the camera feed you share with other
-people. AI Camera is a native macOS menu-bar app that provides **AI Camera** and
-**AI Camera Microphone** as virtual devices for your call or recording app.
+people. Exo Camera is a native macOS menu-bar app that provides **Exo Camera** and
+**Exo Camera Microphone** as virtual devices for your call or recording app.
 
-[Download 0.2.1 early alpha](https://github.com/kortexa-ai/aicamera/releases/tag/v0.2.1) ·
-[Website](https://kortexa-ai.github.io/aicamera/) ·
+[Download 0.3.0 early alpha](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.0) ·
+[Website](https://exo.camera/) ·
 [Install or remove](docs/installation.md) ·
-[Report an issue](https://github.com/kortexa-ai/aicamera/issues)
+[Report an issue](https://github.com/kortexa-ai/exo-camera.desktop/issues)
 
 > **Early alpha:** expect rough edges. Start with a nonessential call. Keep these
 > [recovery and manual cleanup instructions](docs/installation.md#manual-cleanup) handy.
@@ -19,10 +19,10 @@ people. AI Camera is a native macOS menu-bar app that provides **AI Camera** and
 - **Captions and translation:** Whisper transcription and local translation appear directly in
   your outgoing video. Translation currently replaces the original-language caption.
 - **A voice agent on your call:** activate OpenAI Realtime with the Agent button, a held victory
-  gesture, or Control–Option–A. Replies play locally and through AI Camera Microphone when selected.
+  gesture, or Control–Option–A. Replies play locally and through Exo Camera Microphone when selected.
 - **Quick controls:** mute, captions, translation, agent, and gestures in the menu-bar toolbar,
   plus a 4:3 layout and an overlay mirror for apps that crop or flip the camera, such as WhatsApp.
-  Control–Option–M toggles AI Camera mute; holding a fist also mutes audio and speech captions.
+  Control–Option–M toggles Exo Camera mute; holding a fist also mutes audio and speech captions.
 - **Optional vision and overlays:** local object detection, gesture labels, and animated graphics
   created through the agent's overlay tools.
 - **A quiet native app:** a separate Preview window for local camera/microphone tests, Settings,
@@ -30,11 +30,11 @@ people. AI Camera is a native macOS menu-bar app that provides **AI Camera** and
 
 ## Get started
 
-1. Download and open the signed `AICamera-0.2.1.pkg`, then follow macOS Installer.
-2. Open **AI Camera** from Applications and click its icon in the menu bar.
+1. Download and open the signed `ExoCamera-0.3.0.pkg`, then follow macOS Installer.
+2. Open **Exo Camera** from Applications and click its icon in the menu bar.
 3. Install the virtual camera and, optionally, virtual microphone from the app. Follow the
    macOS permission and Media Extension prompts. A system-component change can require a restart.
-4. Select **AI Camera** and **AI Camera Microphone** in your call app.
+4. Select **Exo Camera** and **Exo Camera Microphone** in your call app.
 5. Enable the features you want in **Settings → AI**. Local models download only when requested.
 
 A new installation is plain passthrough with AI features off. No account or model is needed for
@@ -52,8 +52,8 @@ The installer upgrades the host in place and preserves settings, models, login, 
 - OpenAI features need an API key or a separate Codex login. Codex login also requires the Codex CLI.
   **Use Codex login at your own risk:** Realtime works in our testing, but OpenAI approval of this
   use is unconfirmed, and we do not know how OpenAI may respond or whether usage is covered.
-- Muting inside another call app does **not** reliably hide AI Camera captions. Use AI Camera's
-  own **Mute** control as well. Its audio mute protects the call when AI Camera Microphone is selected.
+- Muting inside another call app does **not** reliably hide Exo Camera captions. Use Exo Camera's
+  own **Mute** control as well. Its audio mute protects the call when Exo Camera Microphone is selected.
 - Translation may occasionally return no text. There is one caption language at a time. Gestures
   depend on lighting and hand position; the toolbar provides a direct alternative.
 - Camera compatibility and system-extension approval vary between apps/macOS versions. QuickTime
@@ -62,7 +62,7 @@ The installer upgrades the host in place and preserves settings, models, login, 
 
 ## Privacy
 
-Camera/microphone buffers stay in memory; AI Camera does not record raw media. Local Whisper,
+Camera/microphone buffers stay in memory; Exo Camera does not record raw media. Local Whisper,
 translation, detection, and gestures process on your Mac. Model downloads fetch weights, not your
 media. Enabling OpenAI transcription or conversation sends microphone audio to OpenAI; Realtime
 conversation does not send camera frames in the supported configuration. See **Settings → Privacy**
@@ -70,9 +70,8 @@ and [the privacy documentation](SECURITY.md) for active data routes.
 
 ## Build from source
 
-Development on `main` adds independent agent listening pause (Control–Option–Space), an opt-in
-one-question mode, a local Notes window, and readable information-card tools. These additions
-are not in the downloadable 0.2.1 package. Notes are saved only on request; an explicit note lookup
+Recent additions include independent agent listening pause (Control–Option–Space), an opt-in
+one-question mode, a local Notes window, and readable information-card tools. Notes are saved only on request; an explicit note lookup
 can return their text to the active agent. See [agent behavior and tools](docs/realtime-conversation.md)
 and [the product direction](docs/agent-roadmap.md).
 
@@ -96,10 +95,10 @@ profiles in the ignored `Config/Local.xcconfig`; see [contributing](CONTRIBUTING
 - [Codex authentication boundaries](docs/codex-login.md)
 - [Architecture](docs/architecture.md) and [security/privacy](SECURITY.md)
 - [Tests and diagnostics](docs/testing.md) and [validation evidence](VALIDATION.md)
-- [Release process](docs/release.md) and [0.2.1 release notes](docs/releases/0.2.1.md)
+- [Release process](docs/release.md) and [0.3.0 release notes](docs/releases/0.3.0.md)
 
 ## License
 
-Original AI Camera code is [MIT licensed](LICENSE), copyright Kortexa.
+Original Exo Camera code is [MIT licensed](LICENSE), copyright Kortexa.
 Bundled code and optional model downloads retain their respective licenses; see
 [NOTICE](NOTICE) and [third-party notices](Resources/ThirdParty/THIRD_PARTY_NOTICES.md).

@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import AVFoundation
 import Foundation
 
@@ -113,7 +113,7 @@ struct Validation {
         let state = SpokenTranslationState(), privacy = PrivacyMuteState()
         state.set(enabled: true, targetLanguage: "es", agentBusy: false)
         let segment = makeSegment(state, privacy)
-        let audio = AudioPipelineController(configuration: AICameraConfiguration.default.capture, privacyMute: privacy,
+        let audio = AudioPipelineController(configuration: ExoCameraConfiguration.default.capture, privacyMute: privacy,
             utteranceSeconds: 3, transcriptionEnabled: false, spokenTranslation: state,
             onUtterance: { _ in }, onBargeIn: {}, onError: { _ in })
         try audio.startOfflineForValidation()
@@ -165,7 +165,7 @@ struct Validation {
     @MainActor private static func completePlayback() async throws {
         let state = SpokenTranslationState(), privacy = PrivacyMuteState(), results = Results()
         state.set(enabled: true, targetLanguage: "es", agentBusy: false)
-        var configuration = AICameraConfiguration.default.capture
+        var configuration = ExoCameraConfiguration.default.capture
         configuration.audioSampleRate = 48_000
         let audio = AudioPipelineController(configuration: configuration, privacyMute: privacy,
             utteranceSeconds: 3, transcriptionEnabled: false, spokenTranslation: state,
@@ -202,7 +202,7 @@ struct Validation {
         let state = SpokenTranslationState(), privacy = PrivacyMuteState(), results = Results()
         let features = RuntimeFeatureState(transcription: false, translation: false)
         state.set(enabled: true, targetLanguage: "es", agentBusy: false)
-        var configuration = AICameraConfiguration.default
+        var configuration = ExoCameraConfiguration.default
         configuration.pipeline.conversation.enabled = false
         configuration.pipeline.conversation.transcriptionEnabled = true
         configuration.pipeline.conversation.transcriptionProvider = .whisper

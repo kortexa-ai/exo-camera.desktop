@@ -7,13 +7,13 @@ umask 077
 # The app is installed by the same protected transaction as development builds.
 # Never activate a system extension, install/reload a HAL driver, or launch a GUI here.
 if [[ "${3:-}" != "/" || "$(id -u)" != "0" ]]; then
-    echo "AI Camera must be installed on the running macOS startup volume." >&2
+    echo "Exo Camera must be installed on the running macOS startup volume." >&2
     exit 1
 fi
 INSTALLER_PAYLOAD="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)"
-INSTALLER_SOURCE="$INSTALLER_PAYLOAD/AI Camera.app"
+INSTALLER_SOURCE="$INSTALLER_PAYLOAD/Exo Camera.app"
 test -d "$INSTALLER_SOURCE"
 INSTALLER_TRANSACTION="$(/usr/bin/osascript "$INSTALLER_PAYLOAD/installer-transaction.applescript" \
-    "$INSTALLER_SOURCE" '/Applications/AI Camera.app' \
-    'ai.kortexa.aicamera' 'ai.kortexa.aicamera.camera-extension' render)"
+    "$INSTALLER_SOURCE" '/Applications/Exo Camera.app' \
+    'ai.kortexa.exocamera' 'ai.kortexa.exocamera.camera-extension' render)"
 /usr/bin/printf '%s\n' "$INSTALLER_TRANSACTION" | /bin/sh

@@ -41,7 +41,7 @@ including a sourced weather forecast, can coexist with the effect.
 The host checks that the script starts before reporting success. A failed script stops tracking
 and returns an error so the agent can correct it. A started effect waits for a clear face; it does
 not claim that pixels are already visible.
-Read `AICamera.faceAnchor` inside every animation callback. It is either null or has:
+Read `ExoCamera.faceAnchor` inside every animation callback. It is either null or has:
 
 | Field | Meaning |
 | --- | --- |
@@ -54,7 +54,7 @@ Read `AICamera.faceAnchor` inside every animation callback. It is either null or
 Coordinates use the overlay canvas with a top-left origin and normalized values. The host applies
 the camera's aspect-fill crop and mirror, then compensates for the overlay canvas's own crop. A
 4:3 camera and the 16:9 WebGL canvas therefore use the same alignment contract.
-`AICamera.facePosition(point)` projects one of these points onto the scene's z=0 plane and returns
+`ExoCamera.facePosition(point)` projects one of these points onto the scene's z=0 plane and returns
 a `THREE.Vector3`. Keep the default camera for face effects. The optional second argument selects
 a plane between z=-5 and z=5; a degenerate projection returns null.
 
@@ -65,12 +65,12 @@ const shape = new THREE.Mesh(
   new THREE.SphereGeometry(0.2, 24, 16),
   new THREE.MeshStandardMaterial({ color: 0xffbb38 })
 );
-AICamera.scene.add(shape);
-AICamera.onFrame(() => {
-  const face = AICamera.faceAnchor;
+ExoCamera.scene.add(shape);
+ExoCamera.onFrame(() => {
+  const face = ExoCamera.faceAnchor;
   shape.visible = !!face;
   if (!face) return;
-  const point = AICamera.facePosition(face.top);
+  const point = ExoCamera.facePosition(face.top);
   if (!point) { shape.visible = false; return; }
   shape.position.copy(point);
   shape.rotation.z = face.roll;

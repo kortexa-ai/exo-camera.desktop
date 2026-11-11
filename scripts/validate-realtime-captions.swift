@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import Foundation
 
 // Native coordinator acceptance with controlled completions and actual local translation.
@@ -96,7 +96,7 @@ private actor ControlledTranslation: TranslationClient {
     private static func makeCoordinator(client: any TranslationClient, captions: Captions,
                                         showTranscript: Bool = true, showAgentResponse: Bool = true,
                                         features: RuntimeFeatureState = RuntimeFeatureState()) -> PipelineCoordinator {
-        var profile = AICameraConfiguration.default
+        var profile = ExoCameraConfiguration.default
         profile.overlays.enabled = true
         profile.overlays.showTranscript = showTranscript
         profile.overlays.showAgentResponse = showAgentResponse

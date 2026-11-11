@@ -1,8 +1,16 @@
-# AI Camera product plan
+# Exo Camera product plan
 
-AI Camera is a demand-driven macOS virtual camera and microphone. The host acquires each physical input only while the matching virtual device has a client, or while the user runs an explicit local test or explicitly activates the agent microphone. Fresh profiles are pure passthrough. Optional bounded local and remote stages can render overlays, transcribe speech, run an agent, and mix speech output.
+Exo Camera is a demand-driven macOS virtual camera and microphone. The host acquires each physical input only while the matching virtual device has a client, or while the user runs an explicit local test or explicitly activates the agent microphone. Fresh profiles are pure passthrough. Optional bounded local and remote stages can render overlays, transcribe speech, run an agent, and mix speech output.
 
 Detailed test evidence belongs in [`VALIDATION.md`](VALIDATION.md). Manual acceptance procedures belong in [`docs/testing.md`](docs/testing.md). This file is the canonical roadmap and backlog.
+
+## Exo Camera rebrand 0.3.0
+
+AI Camera becomes Exo Camera ([#76](https://github.com/kortexa-ai/exo-camera.desktop/issues/76)):
+new app, extension, app-group, driver, and device identities (`ai.kortexa.exocamera*`), a one-time
+move of the former support folder and Keychain item, and repository `kortexa-ai/exo-camera.desktop`.
+The website moves from GitHub Pages to [exo.camera](https://exo.camera) (`kortexa-ai/exo.camera`,
+served on Smarty). Exo Camera installs beside AI Camera; users remove the legacy app and devices.
 
 ## Public early alpha 0.2.0
 
@@ -50,7 +58,7 @@ Implementation and acceptance priorities:
   independent call-client acceptance remain follow-up parts of #57.
 - [x] Add opt-in U.S. weather forecasts with approximate-location permission, bounded public HTTP,
   source/issuance/units, and lookup-to-card continuation. Worldwide weather and market data still
-  need provider decisions; see [#59](https://github.com/kortexa-ai/aicamera/issues/59).
+  need provider decisions; see [#59](https://github.com/kortexa-ai/exo-camera.desktop/issues/59).
 - [x] Add bounded local decimal calculation so the agent can check arithmetic before showing a
   comparison. Report rounding and retain units/assumptions; calculation does not verify live facts.
 - [x] Add requested quiet countdowns in the native card slot, with bounded elapsed-time updates,
@@ -110,14 +118,14 @@ Implementation and acceptance priorities:
 ## Current status
 
 - Build 38 aligns Whisper and vision around Size, description/download size, and Model controls,
-  centers captions at the bottom, and uses only AI Camera in the top-left status label.
+  centers captions at the bottom, and uses only Exo Camera in the top-left status label.
   Gesture label visibility has one control in Overlays; detector and box controls remain available.
 - Live camera publication and near-real-time translated captions are user-confirmed on build 37.
-  Follow-ups: [multiple caption languages](https://github.com/kortexa-ai/aicamera/issues/50), with
-  original transcription as a language track, and [mute-aware caption privacy](https://github.com/kortexa-ai/aicamera/issues/51).
-  AI Camera now owns a persistent privacy mute: held fist or the menu/settings control silences
+  Follow-ups: [multiple caption languages](https://github.com/kortexa-ai/exo-camera.desktop/issues/50), with
+  original transcription as a language track, and [mute-aware caption privacy](https://github.com/kortexa-ai/exo-camera.desktop/issues/51).
+  Exo Camera now owns a persistent privacy mute: held fist or the menu/settings control silences
   its microphone output, stops the agent, and clears visible/pending speech. Manual unmute starts
-  fresh capture. Receiving apps must use AI Camera Microphone; detecting their own internal mute
+  fresh capture. Receiving apps must use Exo Camera Microphone; detecting their own internal mute
   switches remains future integration.
 - Native-model shutdown now closes admission, cancels pipeline work, waits for cached and still-live
   replaced Whisper/HY-MT2 clients to release native contexts, then permits AppKit termination.
@@ -158,10 +166,10 @@ Implementation and acceptance priorities:
 - Build 29 adds a separate Codex login through the installed official CLI, managed refresh, explicit API-key/Codex selection, and a silent public Realtime connection test. It preserves desktop credentials and never silently falls back to the API key. Build 26 added embedded Whisper and shared verified model downloads; build 25 corrected translation text and reuse; build 24 moved Realtime onto host-owned PCM.
 - Build 30 corrects truncated PCM conversion by delivering only the requested input frames, retaining the speech converter through a response, and draining its tail. Synthetic checks preserve exact duration and continuous pitch at 44.1/48 kHz; the user confirmed normal playback in a second spoken turn. Codex sign-in, refresh, and audible replies pass. Tools and live translated-caption acceptance remain open. Native local translation and public-fixture Whisper checks pass. Host updates preserve the validated build-12 HAL driver without reinstalling it.
 - Build-12 microphone acceptance passed four normal cycles, short-lived clients, two simultaneous clients with `0 → 1 → 2 → 1 → 0` demand, forced client exit, local-test takeover, and host quit/relaunch while demand remained active. Callback flow, physical Yeti acquisition, prompt teardown, and return to idle all passed without recording media.
-- A bounded QuickTime check exposed and selected **AI Camera** without recording, but the build-10 extension could not deliver camera demand to the host. The extension runs inside `cmiodalassistant`, whose service container is isolated from the GUI user's app-group container; sandbox logs confirmed that the shared JSON-file transport is not usable across those processes.
+- A bounded QuickTime check exposed and selected **Exo Camera** without recording, but the build-10 extension could not deliver camera demand to the host. The extension runs inside `cmiodalassistant`, whose service container is isolated from the GUI user's app-group container; sandbox logs confirmed that the shared JSON-file transport is not usable across those processes.
 - Build 13 replaces that file transport with a bounded timestamped `NSData` snapshot on the read-only CoreMediaIO custom device property `4cc_aicd_glob_0000`. The host resolves the camera by stable UID, reads the raw property bytes through the legacy C API, and rejects missing, malformed, future-dated, or stale snapshots. Build 14 preserves that behavior and passes 89 Swift tests, full non-installing validation, the strict and sanitizer HAL harnesses, an unsigned four-target build, strict Release signing without `get-task-allow`, and `git diff --check`.
 - Xcode automatic signing exported build 14 with the existing Developer ID Application identity and app-specific direct-distribution profile. Apple notarization submission `a790793d-5572-4bdd-b7e5-6aedaa3936eb` was accepted with no issues; the ticket was stapled and validated, strict nested signature verification passed, and Gatekeeper reports `Notarized Developer ID`. The resulting ZIP is the current distribution candidate, not yet the planned installer package.
-- After the explicitly approved restart, retired camera extension build 10 was removed. Build 13 is the only active enabled generation, its provider process runs under `cmiodalassistant`, and **AI Camera** is published at its stable UID. A native probe verified that `aicd` is present on the device's global/main address, is read-only, returns bounded raw `NSData` bytes, and reports a fresh idle aggregate count of zero.
+- After the explicitly approved restart, retired camera extension build 10 was removed. Build 13 is the only active enabled generation, its provider process runs under `cmiodalassistant`, and **Exo Camera** is published at its stable UID. A native probe verified that `aicd` is present on the device's global/main address, is read-only, returns bounded raw `NSData` bytes, and reports a fresh idle aggregate count of zero.
 - Signed live acceptance passed normal and repeated camera cycles, two simultaneous QuickTime source clients, combined camera-plus-virtual-microphone demand, local-test takeover, forced camera-client exit, and host quit/relaunch while camera demand remained active. CoreMediaIO correctly kept aggregate camera demand at 1 until the final source client closed. Final `aicd` and `aicc` counts are zero, physical camera and microphone inputs are released, all bounded clients have exited, and the build-13 host is running idle.
 - Remaining acceptance covers controlled extension freshness, permission recovery, login behavior, the audible distribution-candidate check, and recording those final results. These checks do not block preserving the reviewed automatic-lifecycle implementation in Git.
 
@@ -209,7 +217,7 @@ Items inside a section are not priority ordered. Work must continue to satisfy t
   green for ready, red for active camera/microphone capture. Keep activity text out of the header.
 - [x] Adopt the compact Kortexa Control Center-inspired popup silhouette: a native transient menu-bar popover with rounded corners, a menu-bar pointer, approximately 400-point base width, content-driven height, and a distinct footer. Prefer the native `NSStatusItem` plus `NSPopover` behavior (or an equivalent native implementation) over simulated window chrome.
 - [x] Add **About · Quit** at the right side of the footer, with **About** immediately to the left of **Quit**. About must close the popup and open or foreground one reusable, titled, closable About window.
-- [x] Give the About window the same visual hierarchy as the Control Center reference: centered 80-point production icon, bold **AI Camera** name, one-line purpose subtitle, Kortexa website link, and adjacent version/build and MIT-license rows. Keep device readiness and privacy details in the main controls and Settings. Return the app to accessory-only behavior when the last standalone window closes.
+- [x] Give the About window the same visual hierarchy as the Control Center reference: centered 80-point production icon, bold **Exo Camera** name, one-line purpose subtitle, Kortexa website link, and adjacent version/build and MIT-license rows. Keep device readiness and privacy details in the main controls and Settings. Return the app to accessory-only behavior when the last standalone window closes.
 
 ### Profiles and production packaging
 
@@ -233,12 +241,12 @@ Items inside a section are not priority ordered. Work must continue to satisfy t
 - [x] Add optional in-process HY-MT2 1.8B transcript translation through pinned llama.cpp, with an explicit integrity-checked 1.1 GB Q4_K_M model download, removal, source/target language settings, and bounded work outside the real-time audio callback path. Do not use Tencent's smaller 1.25-bit or 2-bit artifacts until their required tensor layout and STQ kernel are available in a stable upstream llama.cpp release.
 - [x] Present toggled AI feature groups as consistent cards, preserve their header layout while disabled, and use the same local-model status/download/removal pattern for HY-MT2 and YOLOv3 Tiny.
 - [x] Make OpenAI transcription independently usable with Conversation disabled, default to `gpt-transcribe`, share the masked Keychain API key with OpenAI Realtime, and suppress duplicate batch ASR while Realtime is active.
-- [ ] Decide whether AI Camera will adopt AGPL-3.0 or obtain an Ultralytics Enterprise license before offering the official YOLO26n Core ML model; Ultralytics explicitly licenses its trained YOLO26 models under those terms, which are not an automatic fit for this MIT project.
+- [ ] Decide whether Exo Camera will adopt AGPL-3.0 or obtain an Ultralytics Enterprise license before offering the official YOLO26n Core ML model; Ultralytics explicitly licenses its trained YOLO26 models under those terms, which are not an automatic fit for this MIT project.
 - [x] Offer Apache-2.0 RF-DETR Medium and Large as integrity-checked downloadable Core ML detectors, keep YOLOv3 Tiny as the lightweight option, and select Medium by default while identifying Large as the higher-accuracy choice for M4 Pro / M3 Max-class hardware and above.
 
 ### Development and production isolation
 
-- [ ] Add a co-installable **AI Camera Dev** product flavor so development can continue while the production app remains installed in `/Applications`. Give it a distinct app name and bundle identifier; camera-extension identifier, Mach service, stable device/stream UUIDs, and virtual-camera name; HAL bundle/install name, factory UUID, plug-in/box/device/model identifiers, and device name; plus a distinct app group, Application Support/profile path, generation marker, defaults domain, Keychain service, and login item.
+- [ ] Add a co-installable **Exo Camera Dev** product flavor so development can continue while the production app remains installed in `/Applications`. Give it a distinct app name and bundle identifier; camera-extension identifier, Mach service, stable device/stream UUIDs, and virtual-camera name; HAL bundle/install name, factory UUID, plug-in/box/device/model identifiers, and device name; plus a distinct app group, Application Support/profile path, generation marker, defaults domain, Keychain service, and login item.
 - [ ] Keep feeder authorization flavor-specific: the production extension must accept only the production host and the development extension only the development host, with the existing team, path, hardened-runtime, entitlement, and PID-version checks intact. Dev and production demand signals, profiles, permissions/status, secrets, and component maintenance actions must never cross.
 - [ ] Add explicit build/run/package flavor selection and clear visual **Dev** identity. Ordinary development builds and tests must not install or activate either flavor automatically. Validate side-by-side install, upgrade, client selection, crash, repair, and removal; prove that every development maintenance action leaves the production app, marker, driver, extension, login item, profile, Keychain items, and live virtual devices unchanged.
 
@@ -262,15 +270,15 @@ Follow-up direction: local face landmarks (MediaPipe is a candidate) anchor gene
 filters, such as a moving hat, while spoken questions can produce floating graphics such as a pie
 chart. Composite these into the outgoing camera image so other call participants see the result.
 Evaluate tracking stability, occlusion, frame freshness, and bounded landmark access after the
-current OpenAI/local completion work. See [the follow-up design item](https://github.com/kortexa-ai/aicamera/issues/45).
+current OpenAI/local completion work. See [the follow-up design item](https://github.com/kortexa-ai/exo-camera.desktop/issues/45).
 
 ### Model-rendered overlay scripts (transparent render layer)
 
 Design: `docs/overlay-script-renderer.md`. The model gets a bounded `render_overlay` tool; the script (three.js, WebGL2) runs in a hidden in-app WKWebView and its transparent frames are composited onto the published camera frames.
 
 - [ ] Keep the cheaper structured/SVG overlay path for simple labels; use script rendering for rich 2D/3D/animated content.
-- [x] Phase 0 spike: the `AICameraOverlaySpike` dev tool proves hidden WKWebView + three.js + `readPixels` to `CVPixelBuffer` + alpha composite at 30 fps. Results and WebKit/SDK quirks are recorded in `docs/overlay-script-renderer.md`.
-- [x] Add `OverlayScriptRenderer` (on-screen at near-zero window alpha so WebKit keeps rendering invisibly, bounded `window.AICamera` bridge, non-persistent storage) and a lock-based single-slot overlay-frame mailbox (`LatestValueSlot`); composite only fresh frames in `OverlayRenderer`; keep the inference path clean. Manual camera-test acceptance confirmed the live camera, rotating cube, and ring composite correctly.
+- [x] Phase 0 spike: the `ExoCameraOverlaySpike` dev tool proves hidden WKWebView + three.js + `readPixels` to `CVPixelBuffer` + alpha composite at 30 fps. Results and WebKit/SDK quirks are recorded in `docs/overlay-script-renderer.md`.
+- [x] Add `OverlayScriptRenderer` (on-screen at near-zero window alpha so WebKit keeps rendering invisibly, bounded `window.ExoCamera` bridge, non-persistent storage) and a lock-based single-slot overlay-frame mailbox (`LatestValueSlot`); composite only fresh frames in `OverlayRenderer`; keep the inference path clean. Manual camera-test acceptance confirmed the live camera, rotating cube, and ring composite correctly.
 - [x] Add the public Realtime bounded tool executor described in `docs/realtime-conversation.md`;
   expose `render_overlay(script, ttlSeconds?)` and `clear_overlay()` with canvas dimensions,
   transparency, bridge, and coordinate contracts; tear down on lane stop, cancellation, and expiry.
@@ -296,7 +304,7 @@ Design: `docs/overlay-script-renderer.md`. The model gets a bounded `render_over
 ### Distribution
 
 - [ ] Produce a Developer ID-signed, hardened, notarized, and stapled production build. Add a step-by-step release guide that separates the operator's Apple Developer tasks from automated checks: enrollment/access, identifiers and capabilities, certificates and provisioning profiles, local notary credentials, archive/sign verification, notarization submission, stapling, and Gatekeeper assessment. Guide the operator interactively through each Apple portal or Keychain step without committing or printing credentials, team identifiers, or signing identities.
-- [ ] Create a Developer ID Installer-signed, notarized, and stapled installer package for GitHub Releases while keeping the app and every nested component Developer ID Application-signed. It should install or upgrade only **AI Camera.app** in `/Applications`; package scripts must never activate the camera extension, copy or reload the HAL driver, change defaults, or hide an approval/reboot. Preserve the existing protected-transaction guarantees (strict nested identity checks, root-private same-volume staging, rollback, generation marker, and immutable destination) or provide and validate an equally strong installer transaction. Publish checksums, versioned release notes, and matching uninstall/repair instructions.
+- [ ] Create a Developer ID Installer-signed, notarized, and stapled installer package for GitHub Releases while keeping the app and every nested component Developer ID Application-signed. It should install or upgrade only **Exo Camera.app** in `/Applications`; package scripts must never activate the camera extension, copy or reload the HAL driver, change defaults, or hide an approval/reboot. Preserve the existing protected-transaction guarantees (strict nested identity checks, root-private same-volume staging, rollback, generation marker, and immutable destination) or provide and validate an equally strong installer transaction. Publish checksums, versioned release notes, and matching uninstall/repair instructions.
 - [ ] Add a repeatable release-packaging command that fails closed on wrong versions, bundle/component identity mismatches, missing hardened runtime, debug entitlements, unsigned nested code, wrong Application-versus-Installer certificate class, failed notarization/stapling of the final distributed container, or a dirty/unreviewed release input. Keep Apple credentials in local Keychain/environment references only.
 - [ ] Complete clean-machine installer, first-run approval, virtual-device publication, upgrade-in-place, rollback, repair, uninstall, reboot-boundary, and Gatekeeper acceptance. Confirm package execution itself performs no camera-extension activation and no HAL copy or Core Audio reload.
 - [ ] Verify GitHub update-check behavior in production and confirm that development builds make no update requests.

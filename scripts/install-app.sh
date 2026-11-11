@@ -3,10 +3,10 @@ set -euo pipefail
 
 ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." >/dev/null 2>&1 && pwd -P)"
 CONFIGURATION="Release"
-SOURCE="$ROOT/build/DerivedData/Build/Products/$CONFIGURATION/AI Camera.app"
-DESTINATION="/Applications/AI Camera.app"
-EXPECTED_ID="ai.kortexa.aicamera"
-EXPECTED_EXTENSION_ID="ai.kortexa.aicamera.camera-extension"
+SOURCE="$ROOT/build/DerivedData/Build/Products/$CONFIGURATION/Exo Camera.app"
+DESTINATION="/Applications/Exo Camera.app"
+EXPECTED_ID="ai.kortexa.exocamera"
+EXPECTED_EXTENSION_ID="ai.kortexa.exocamera.camera-extension"
 
 verify_signed_product() {
     app="$1"
@@ -27,11 +27,11 @@ verify_signed_product "$SOURCE"
 test "$(plutil -extract CFBundleIdentifier raw "$SOURCE/Contents/Info.plist")" = "$EXPECTED_ID"
 
 # Stop only this application before replacing its bundle. It is fine when it is not running.
-osascript -e 'tell application id "ai.kortexa.aicamera" to quit' >/dev/null 2>&1 || true
+osascript -e 'tell application id "ai.kortexa.exocamera" to quit' >/dev/null 2>&1 || true
 sleep 1
 
 # The privileged transaction invalidates the prior generation marker before the app swap and
-# confirms that no old AI Camera process survives before committing the new marker.
+# confirms that no old Exo Camera process survives before committing the new marker.
 INSTALL_COMMAND="$(osascript "$ROOT/scripts/installer-transaction.applescript" \
     "$SOURCE" "$DESTINATION" "$EXPECTED_ID" "$EXPECTED_EXTENSION_ID" render)"
 

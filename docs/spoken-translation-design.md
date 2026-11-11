@@ -1,8 +1,8 @@
 # Spoken translation during a call
 
-The local implementation for [#57](https://github.com/kortexa-ai/aicamera/issues/57) adds a session-only
+The local implementation for [#57](https://github.com/kortexa-ai/exo-camera.desktop/issues/57) adds a session-only
 **Voice** toolbar control. It uses Whisper → HY-MT → an installed Mac voice and sends speech through
-AI Camera Microphone. Voice starts off, requires an active microphone client and ready local models,
+Exo Camera Microphone. Voice starts off, requires an active microphone client and ready local models,
 and does not change the saved settings format. Caption toggles remain independent. The agent's
 existing `set_translation` tool still controls captions; spoken-translation tools and the separate
 remote provider described below are follow-up work.
@@ -10,12 +10,12 @@ remote provider described below are follow-up work.
 ## The first useful experience
 
 The user asks “Translate my voice into Spanish.” Their friend hears translated speech through
-**AI Camera Microphone**, while the user continues speaking normally. Agent input can stay paused.
+**Exo Camera Microphone**, while the user continues speaking normally. Agent input can stay paused.
 The translator handles speech; the agent controls its state and helps with other requests.
 
 Start with one source—the selected physical microphone—and one outgoing spoken language. Incoming
 participant audio, system audio, voice cloning, multiple simultaneous spoken languages, and remote
-control of a calling app's mute button are separate features. Selecting AI Camera as the video
+control of a calling app's mute button are separate features. Selecting Exo Camera as the video
 source alone does not route its microphone into the call.
 
 | Control | Effect |
@@ -24,11 +24,11 @@ source alone does not route its microphone into the call.
 | Voice translation on/off | Admits fresh source audio/text to that translator |
 | Agent Pause listening | Closes agent input; explicitly enabled translation continues |
 | Agent Stop / sleep | Ends the assistant session; independently enabled translation can continue |
-| AI Camera privacy mute | Stops source/translated/agent audio and clears captions and pending work |
-| Calling app's mute | Is outside AI Camera's current visibility; see #51 |
+| Exo Camera privacy mute | Stops source/translated/agent audio and clears captions and pending work |
+| Calling app's mute | Is outside Exo Camera's current visibility; see #51 |
 
 Do not infer addressed speech to decide whether translation is permitted. A user-closed gate is
-authoritative. Turning translation on never unmutes AI Camera. Like captions, an enabled translator
+authoritative. Turning translation on never unmutes Exo Camera. Like captions, an enabled translator
 can process conversation with the other person while agent input is paused; explain this near the
 listening control. Voice translation starts off after app launch and requires explicit activation.
 
@@ -88,7 +88,7 @@ flowchart LR
     Translator --> Owner
     Original --> Mix[Bounded output mixer]
     Owner --> Mix
-    Mix --> Virtual[AI Camera Microphone]
+    Mix --> Virtual[Exo Camera Microphone]
     Owner -. optional translated monitor .-> Headphones[Local output]
 ```
 

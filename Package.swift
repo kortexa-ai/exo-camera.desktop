@@ -2,34 +2,34 @@
 import PackageDescription
 
 let package = Package(
-    name: "AICamera",
+    name: "ExoCamera",
     platforms: [.macOS(.v14)],
     products: [
-        .library(name: "AICameraCore", targets: ["AICameraCore"]),
+        .library(name: "ExoCameraCore", targets: ["ExoCameraCore"]),
     ],
     targets: [
         .target(
-            name: "AICameraCore",
-            path: "Sources/AICameraCore"
+            name: "ExoCameraCore",
+            path: "Sources/ExoCameraCore"
         ),
         .target(
-            name: "AICameraShared",
-            path: "Sources/AICameraShared"
+            name: "ExoCameraShared",
+            path: "Sources/ExoCameraShared"
         ),
         .testTarget(
-            name: "AICameraCoreTests",
-            dependencies: ["AICameraCore"],
-            path: "Tests/AICameraCoreTests"
+            name: "ExoCameraCoreTests",
+            dependencies: ["ExoCameraCore"],
+            path: "Tests/ExoCameraCoreTests"
         ),
         .testTarget(
-            name: "AICameraSharedTests",
-            dependencies: ["AICameraShared"],
-            path: "Tests/AICameraSharedTests"
+            name: "ExoCameraSharedTests",
+            dependencies: ["ExoCameraShared"],
+            path: "Tests/ExoCameraSharedTests"
         ),
         // Phase 0 dev tool for the model-rendered overlay layer. Not shipped with the app.
         .executableTarget(
-            name: "AICameraOverlaySpike",
-            path: "Sources/AICameraOverlaySpike",
+            name: "ExoCameraOverlaySpike",
+            path: "Sources/ExoCameraOverlaySpike",
             resources: [.copy("Resources")]
         ),
     ]

@@ -8,7 +8,7 @@
     "mirrorVideo": true,
     "audioSampleRate": 48000,
     "audioChannels": 1,
-    "virtualAudioOutputDeviceID": "ai.kortexa.aicamera.audio.device",
+    "virtualAudioOutputDeviceID": "ai.kortexa.exocamera.audio.device",
     "microphoneGain": 1,
     "speechGain": 1
   },
@@ -20,7 +20,7 @@
       "model": "whisper-1",
       "auth": {
         "kind": "bearerEnvironment",
-        "reference": "AICAMERA_API_KEY",
+        "reference": "EXOCAMERA_API_KEY",
         "header": "Authorization",
         "prefix": "Bearer "
       },
@@ -34,7 +34,7 @@
       "model": "chat-model",
       "auth": {
         "kind": "bearerEnvironment",
-        "reference": "AICAMERA_API_KEY",
+        "reference": "EXOCAMERA_API_KEY",
         "header": "Authorization",
         "prefix": "Bearer "
       },
@@ -51,7 +51,7 @@
       "model": "tts-model",
       "auth": {
         "kind": "bearerEnvironment",
-        "reference": "AICAMERA_API_KEY",
+        "reference": "EXOCAMERA_API_KEY",
         "header": "Authorization",
         "prefix": "Bearer "
       },

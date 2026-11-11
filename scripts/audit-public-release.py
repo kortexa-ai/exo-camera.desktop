@@ -22,7 +22,7 @@ for name in paths:
     assert not name.startswith(("build/", ".build/", "artifacts/")), f"Generated release input: {name}"
     assert (root / name).is_file(), f"Unexpected input type: {name}"
 
-with tempfile.TemporaryDirectory(prefix="aicamera-public-audit-") as temporary:
+with tempfile.TemporaryDirectory(prefix="exocamera-public-audit-") as temporary:
     work = Path(temporary)
     current = work / "current"
     for name in paths:

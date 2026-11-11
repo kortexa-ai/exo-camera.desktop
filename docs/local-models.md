@@ -2,7 +2,7 @@
 
 Local transcription, translation, detection, and gestures run in the macOS host. Model downloads
 are explicit network requests for public weights. They do not send microphone audio, camera frames,
-transcripts, or credentials. Inference uses memory-only inputs; AI Camera does not record media.
+transcripts, or credentials. Inference uses memory-only inputs; Exo Camera does not record media.
 
 ## Whisper transcription
 
@@ -69,7 +69,7 @@ verification. Progress is throttled to ten updates per second. Failed and cancel
 their partial files. Redirects must stay on HTTPS without URL credentials. Model downloads use no
 cookie storage or response cache.
 
-Whisper and HY-MT2 weights live in `~/Library/Application Support/AI Camera/Models/`. They are not
+Whisper and HY-MT2 weights live in `~/Library/Application Support/Exo Camera/Models/`. They are not
 bundled in the app or tracked by Git. **Remove** deletes the selected artifact; removing an active
 model first disables that feature. Cancellation and removal invalidate download ownership so a late
 completion cannot restore deleted weights. Vision weights are compiled to Core ML before becoming

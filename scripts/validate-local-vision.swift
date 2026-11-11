@@ -1,5 +1,5 @@
 // Native checks use only SHA-256-pinned public fixtures. No capture or Keychain access.
-import AICameraCore
+import ExoCameraCore
 import CryptoKit
 import Foundation
 
@@ -69,7 +69,7 @@ private enum CheckFailure: Error { case fixture, missingModel, cache, detection,
     }
 
     private static func validate(_ detections: [Detection]) throws {
-        guard detections.contains(where: { $0.label == "dog" }), detections.count <= AICameraContentLimits.detections else {
+        guard detections.contains(where: { $0.label == "dog" }), detections.count <= ExoCameraContentLimits.detections else {
             print("Unexpected public-fixture labels: \(detections.map(\.label))")
             throw CheckFailure.detection
         }
@@ -82,7 +82,7 @@ private enum CheckFailure: Error { case fixture, missingModel, cache, detection,
     }
 
     @MainActor private static func checkRemoval(request: DetectionRequest) async throws {
-        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("aicamera-vision-cache-\(UUID())")
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("exocamera-vision-cache-\(UUID())")
         let fixture = directory.appendingPathComponent("YOLOv3TinyInt8LUT.mlmodelc")
         try FileManager.default.createDirectory(at: fixture, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: directory) }

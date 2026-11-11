@@ -9,9 +9,9 @@ from actual spoken and call-client acceptance.
 1. Run `scripts/validate.sh`, then `scripts/validate-release-settings.sh`. Record the source commit
    and results in the owning issue. The second fixture compiles the pinned public 0.2.0 core and
    uses disposable synthetic settings; it neither fetches code nor reads installed/user settings.
-2. Retain the verified [0.2.0 installer](https://github.com/kortexa-ai/aicamera/releases/tag/v0.2.0)
+2. Retain the verified [0.2.0 installer](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.2.0)
    and its checksum. Before installation, keep a private copy of the existing
-   `~/Library/Application Support/AI Camera/profile.json` if present. Treat it as settings data:
+   `~/Library/Application Support/Exo Camera/profile.json` if present. Treat it as settings data:
    it can contain device identifiers and credential references. Keep this backup out of issues and
    the repository. A new notebook is separate and must not be removed to roll back the app.
 3. Give the candidate an independent host build number and verify its signed source. Host-only
@@ -27,7 +27,7 @@ See [installation](installation.md) for the normal signed installer and system-c
 
 ## Test the call first
 
-Select **AI Camera** as the camera in an independent client such as QuickTime. Select **AI Camera
+Select **Exo Camera** as the camera in an independent client such as QuickTime. Select **Exo Camera
 Microphone** when checking audio sent through the virtual microphone. Camera selection alone does
 not select its audio source. Use headphones for the spoken checks where possible.
 
@@ -44,7 +44,7 @@ Keep the first checks focused on the established behavior:
 - Select **One question at a time** in Settings → AI → Conversation → Listening. Ask a question,
   then keep talking. The agent stays paused after the answer. **Ask again** deliberately admits a
   fresh question; older audio must not be replayed.
-- Test full AI Camera privacy mute separately. It stops AI Camera audio/captions and the agent;
+- Test full Exo Camera privacy mute separately. It stops Exo Camera audio/captions and the agent;
   unmute begins with fresh state. A receiving app's own mute button is not synchronized with this
   control; the cross-application requirement remains tracked in issue 51.
 
@@ -96,7 +96,7 @@ package downgrade, account access, or independent-client acceptance.
 
 ## Return to the stable host if needed
 
-If the candidate is usable, turn **Weather forecasts** off before returning to 0.2.0. Quit AI Camera
+If the candidate is usable, turn **Weather forecasts** off before returning to 0.2.0. Quit Exo Camera
 before replacing its host bundle or restoring a settings file. Reinstall the retained signed
 0.2.0 package through the normal installer and verify About/signature/generation. Keep the working
 camera extension and audio driver installed; a host rollback does not need their removal.
@@ -107,14 +107,14 @@ compatibility. If no backup exists, use the newer host to disable Weather foreca
 the older host, or inspect the saved configuration privately before making a targeted repair.
 
 Report a failed acceptance with the host version, source commit, exact control/request, expected
-and observed behavior, and whether the independent client selected AI Camera Microphone. Keep raw
+and observed behavior, and whether the independent client selected Exo Camera Microphone. Keep raw
 camera/microphone media, notebook contents, device identifiers, and credentials out of public reports.
 
 
 ## Local spoken translation
 
 The **Voice** toolbar toggle starts off on launch and after a microphone/route shutdown. Select
-**AI Camera Microphone** in the independent calling client first. Enable Whisper and translation
+**Exo Camera Microphone** in the independent calling client first. Enable Whisper and translation
 in Settings, download their models, and choose a language with an installed Mac voice. The Voice
 control's help explains any missing requirement. This does not download or use a personal voice.
 
@@ -128,7 +128,7 @@ With headphones and the client recording only explicitly synthetic speech:
 3. Ask the agent a question. Its answer should interrupt translation, with no overlapping synthetic
    speakers. Voice resumes using newly captured speech after the answer drains, not old sentences.
 4. Turn Voice off mid-sentence, change the translation language, and test mute/unmute. Old-language
-   or pre-mute audio must not return. Full AI Camera mute stops original, translated, and agent audio.
+   or pre-mute audio must not return. Full Exo Camera mute stops original, translated, and agent audio.
 5. Change the call's microphone or close the client. Voice should turn off and require explicit
    activation after a new route starts. A slow/failed translator should explain why Voice stopped
    while the original microphone continues. Calling-app mute detection remains tracked separately.

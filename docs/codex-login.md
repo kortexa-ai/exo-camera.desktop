@@ -1,8 +1,8 @@
-# Separate Codex login for AI Camera
+# Separate Codex login for Exo Camera
 
-AI Camera can ask the installed Codex CLI to create a separate login for public OpenAI Realtime.
+Exo Camera can ask the installed Codex CLI to create a separate login for public OpenAI Realtime.
 This is the personal integration requested for this app, based on the `esp32-voice` device-login
-experiment. It is not a registered AI Camera OAuth client or a promise that a ChatGPT subscription
+experiment. It is not a registered Exo Camera OAuth client or a promise that a ChatGPT subscription
 includes general Platform API usage. The API-key choice remains available and uses Platform billing.
 
 ## Sign in
@@ -15,11 +15,11 @@ includes general Platform API usage. The API-key choice remains available and us
 4. After the account appears, use **Test Connection** to check the credential and selected model
    without capturing audio. Then save the choice and use Talk. The active-authentication status stays
    on the previously saved option until you save. A Keychain access dialog may appear the first
-   time the signed AI Camera app reads this dedicated credential.
+   time the signed Exo Camera app reads this dedicated credential.
 
 **Cancel Sign-in** stops the pending ceremony. **Refresh Login** asks Codex to renew its managed
 tokens. **Sign Out** stops an active Talk, disables Conversation when it uses Codex, and clears
-only AI Camera's dedicated login through Codex. It does not sign the desktop coding session out.
+only Exo Camera's dedicated login through Codex. It does not sign the desktop coding session out.
 If an account cannot use public Realtime, select the API-key option explicitly; the app does not
 silently fall back to a separately billed key.
 
@@ -27,8 +27,8 @@ silently fall back to a separately billed key.
 
 The [official app-server interface](https://learn.chatgpt.com/docs/app-server#authentication)
 provides `account/login/start` with `chatgptDeviceCode`, completion notifications, cancellation,
-`account/read` with managed refresh, and `account/logout`. AI Camera invokes the installed executable
-with a private `CODEX_HOME` at `~/Library/Application Support/AI Camera/Codex`, a minimal environment,
+`account/read` with managed refresh, and `account/logout`. Exo Camera invokes the installed executable
+with a private `CODEX_HOME` at `~/Library/Application Support/Exo Camera/Codex`, a minimal environment,
 and `cli_auth_credentials_store="keyring"`. It creates no agent thread and sends no media to Codex's
 app-server. The [Codex authentication guide](https://learn.chatgpt.com/docs/auth#credential-storage)
 describes OS credential storage and managed token refresh.
@@ -42,7 +42,7 @@ cancellation removes its pending continuation; login cancellation also uses Code
 The direct Keychain backend stores a JSON credential bundle under service `Codex Auth` and account
 `cli|` plus the first 16 hexadecimal SHA-256 characters of the canonical home path. This integration
 follows the [public Codex storage implementation](https://github.com/openai/codex/blob/7dc7c7a7566a970f6d4d09e1384f854aebaf39e0/codex-rs/login/src/auth/storage.rs).
-AI Camera reads only the entry for its own directory. Access tokens stay in memory while needed;
+Exo Camera reads only the entry for its own directory. Access tokens stay in memory while needed;
 refresh tokens remain owned by Codex in Keychain. The app never reads `~/.codex/auth.json`, browser
 cookies, the desktop credential entry, or `esp32-voice` credentials. It rejects an existing
 `auth.json` in its dedicated directory instead of importing a file-based login.
@@ -60,7 +60,7 @@ The official documentation establishes Codex login and its token lifecycle. The
 documents bearer API-key authentication. It does not establish that a dedicated Codex OAuth token
 is a supported general-purpose Realtime credential or that its audio usage is covered by a
 subscription. The separate `esp32-voice` experiment observed public Realtime session acceptance
-for this account. AI Camera's signed-app check also completed sign-in, refresh, and public session
+for this account. Exo Camera's signed-app check also completed sign-in, refresh, and public session
 setup, and the user heard a spoken reply. Subsequent playback-rate correction was confirmed by the user.
 These results establish observed account access, not subscription billing or a distribution contract.
 

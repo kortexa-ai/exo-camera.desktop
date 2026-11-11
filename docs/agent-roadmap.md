@@ -1,6 +1,6 @@
 # A useful companion during a call
 
-AI Camera should help the person using it remember something, understand an answer, or explain
+Exo Camera should help the person using it remember something, understand an answer, or explain
 an idea without making them leave the conversation. The camera feed is a shared canvas. A small
 visual can answer a question while the people keep talking.
 
@@ -88,7 +88,7 @@ The user's configured tone can supplement this contract without claiming unsuppo
 
 Suggested product prompt:
 
-> You are AI Camera, a helpful companion for the person using this camera during a live call.
+> You are Exo Camera, a helpful companion for the person using this camera during a live call.
 > Keep spoken answers brief, usually one sentence. Let the people keep talking. Respond to requests
 > addressed to you; use the available silent-wait tool for background or unrelated conversation.
 > Ask one short question when a required detail is missing. Use a small information card when a
@@ -114,12 +114,12 @@ Use the installed user's working model selection; this roadmap does not require 
 2. Bound multi-step tool sequences and keep tool work out of the ordered media-event consumer.
 3. Add requested local notes and readable information cards; refine the prompt against fixtures.
 4. Add a grounded current-information provider, then prove lookup → visual → short reply end to end.
-5. Extend live translation controls, sleep, and presentation composition under [#57](https://github.com/kortexa-ai/aicamera/issues/57).
-6. Add face anchors and playful effects under [#45](https://github.com/kortexa-ai/aicamera/issues/45).
+5. Extend live translation controls, sleep, and presentation composition under [#57](https://github.com/kortexa-ai/exo-camera.desktop/issues/57).
+6. Add face anchors and playful effects under [#45](https://github.com/kortexa-ai/exo-camera.desktop/issues/45).
 7. Evaluate smarter addressed-speech detection and richer tools only against real user benefit.
 
 Each increment needs deterministic invalid-input, stale-result, cancellation, timing, and privacy
 checks plus a synthetic camera/audio fixture. Live hardware or account acceptance is recorded
 separately. The stable published release and working system components remain available while
 new host behavior is tested. Current implementation evidence is tracked in
-[#58](https://github.com/kortexa-ai/aicamera/issues/58).
+[#58](https://github.com/kortexa-ai/exo-camera.desktop/issues/58).

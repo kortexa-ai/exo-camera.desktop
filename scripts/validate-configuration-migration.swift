@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import Foundation
 
 /// Runs the real settings controller against disposable synthetic files. No app launch, media,
@@ -14,12 +14,12 @@ struct ConfigurationMigrationValidation {
     @MainActor
     static func main() throws {
         let directory = FileManager.default.temporaryDirectory
-            .appendingPathComponent("aicamera-migration-\(UUID().uuidString)", isDirectory: true)
+            .appendingPathComponent("exocamera-migration-\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false)
         defer { try? FileManager.default.removeItem(at: directory) }
         let settingsURL = directory.appendingPathComponent("settings.json")
         let store = ConfigurationStore(fileURL: settingsURL)
-        var legacy = AICameraConfiguration.default
+        var legacy = ExoCameraConfiguration.default
         ConfigurationController.installOpenAITranscriptionConfiguration(in: &legacy)
         legacy.endpoints[0].baseURL = URL(string: "https://legacy.example")!
         legacy.privacy.allowedHosts = ["legacy.example"]

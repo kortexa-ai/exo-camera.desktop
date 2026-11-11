@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import AppKit
 
 /// Default mode uses synthetic public-data responses. --live checks only Seattle city-center
@@ -13,7 +13,7 @@ struct WeatherValidation {
         let live = args[0] == "--live"
         let output = URL(fileURLWithPath: args[1], isDirectory: true)
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
-        var profile = AICameraConfiguration.default
+        var profile = ExoCameraConfiguration.default
         profile.overlays.script.enabled = true
         AgentWeatherPolicy.setEnabled(true, in: &profile)
         let fixed = Date(timeIntervalSince1970: 1_788_691_200)

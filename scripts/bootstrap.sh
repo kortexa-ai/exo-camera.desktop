@@ -5,7 +5,7 @@ ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." >/dev/null 2>&1 && pwd -P)"
 cd "$ROOT"
 
 if [ "$(uname -s)" != "Darwin" ]; then
-    echo "AICamera requires macOS." >&2
+    echo "ExoCamera requires macOS." >&2
     exit 1
 fi
 if ! command -v xcodegen >/dev/null 2>&1; then

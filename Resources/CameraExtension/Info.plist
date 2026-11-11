@@ -5,7 +5,7 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
-    <string>AI Camera</string>
+    <string>Exo Camera</string>
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
@@ -28,6 +28,6 @@
     <key>LSMinimumSystemVersion</key>
     <string>$(MACOSX_DEPLOYMENT_TARGET)</string>
     <key>NSSystemExtensionUsageDescription</key>
-    <string>AI Camera publishes the processed video stream as a virtual camera for other apps.</string>
+    <string>Exo Camera publishes the processed video stream as a virtual camera for other apps.</string>
 </dict>
 </plist>

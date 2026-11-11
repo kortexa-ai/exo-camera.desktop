@@ -11,9 +11,9 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleDisplayName</key>
-    <string>AI Camera</string>
+    <string>Exo Camera</string>
     <key>CFBundleName</key>
-    <string>AI Camera</string>
+    <string>Exo Camera</string>
     <key>CFBundleShortVersionString</key>
     <string>$(MARKETING_VERSION)</string>
     <key>CFBundleVersion</key>
@@ -25,11 +25,11 @@
     <key>LSUIElement</key>
     <true/>
     <key>NSCameraUsageDescription</key>
-    <string>AI Camera uses the selected camera to create the processed virtual camera stream.</string>
+    <string>Exo Camera uses the selected camera to create the processed virtual camera stream.</string>
     <key>NSMicrophoneUsageDescription</key>
-    <string>AI Camera uses the selected microphone for transcription and the mixed virtual microphone stream.</string>
+    <string>Exo Camera uses the selected microphone for transcription and the mixed virtual microphone stream.</string>
     <key>NSSystemExtensionUsageDescription</key>
-    <string>AI Camera installs a camera extension so other apps can select the processed video stream.</string>
+    <string>Exo Camera installs a camera extension so other apps can select the processed video stream.</string>
     <key>NSHumanReadableCopyright</key>
     <string>Copyright © Kortexa.</string>
 </dict>

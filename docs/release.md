@@ -22,8 +22,8 @@ Use Xcode's local account/profile management for the app identifiers and entitle
 `Config/Local.xcconfig` ignored. The app, frameworks, camera extension, and HAL plug-in use
 **Developer ID Application**; the installer uses **Developer ID Installer**, from the same team.
 Keep notarization credentials in a Keychain profile, not in the repository or command output.
-The default profile is `notarytool`; override it with `AICAMERA_NOTARY_PROFILE`.
-Select a specific installer certificate with `AICAMERA_INSTALLER_IDENTITY` if necessary.
+The default profile is `notarytool`; override it with `EXOCAMERA_NOTARY_PROFILE`.
+Select a specific installer certificate with `EXOCAMERA_INSTALLER_IDENTITY` if necessary.
 
 ## Build and notarize
 
@@ -40,7 +40,7 @@ an offline ticket. Apple's installer submission also scans its nested code.
 Each run writes to a new ignored `build/release-<version>.*` directory. Keep its source commit,
 notary results/logs, signature verification, and final checksum with the acceptance evidence.
 Do not upload the archive, export options, or intermediate signing/build logs as release assets.
-Distribute only the final `AICamera-<version>.pkg`, `SHA256SUMS`, release notes, and required notices.
+Distribute only the final `ExoCamera-<version>.pkg`, `SHA256SUMS`, release notes, and required notices.
 
 The package carries the app in its private script payload and invokes the exact same protected
 replacement transaction as `scripts/install-app.sh`. It installs only the host in `/Applications`.
@@ -57,10 +57,11 @@ capture, or requests a reboot. macOS Installer provides the administrator author
   release, attach the final package and checksum, and use `docs/releases/0.2.0.md` as its notes.
 - Mark this release **prerelease / early alpha**. Publish after the public audit and basic acceptance
   pass. Repository visibility is a separate public-exposure operation and must wait for the audit.
-- Configure GitHub Pages to deploy through Actions. `pages.yml` deploys `site/` when a release is
-  published or when manually dispatched. Verify HTTPS, mobile layout, and the actual download link.
+- The website is [exo.camera](https://exo.camera), built from the separate `kortexa-ai/exo.camera`
+  repository and served by nginx on Smarty. After publication, update its version and download
+  links there, deploy it through Git on Smarty, and verify HTTPS, mobile layout, and the download link.
 - Verify the public release/website, download the published installer, and compare its checksum.
-  Record the commit/tag, artifact hash, notarization IDs, release URL, and Pages URL in issue 56.
+  Record the commit/tag, artifact hash, notarization IDs, release URL, and website check in the release issue.
 
 GitHub source ZIP/tar downloads are source code, not the installer. Avoid moving an already
 published tag or replacing an installer silently; publish a new version for changed release bytes.

@@ -1,6 +1,6 @@
-// AICamera overlay bridge.
+// ExoCamera overlay bridge.
 //
-// Sets up a transparent three.js canvas and exposes `window.AICamera`, the
+// Sets up a transparent three.js canvas and exposes `window.ExoCamera`, the
 // only API an overlay script may use. The native side injects scripts via
 // evaluateJavaScript and receives rendered frames as base64 strings through
 // the "frame" message handler (WKScriptMessage cannot carry binary).
@@ -178,7 +178,7 @@
     if (Math.abs(ray.z) < 0.0001) return null;
     return camera.position.clone().add(ray.multiplyScalar((z - camera.position.z) / ray.z));
   };
-  window.AICamera = api;
+  window.ExoCamera = api;
   window.addEventListener('error', function (e) { log('PAGE ERROR: ' + e.message); });
   log('bridge ready ' + W + 'x' + H);
 })();

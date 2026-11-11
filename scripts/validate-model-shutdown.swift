@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import AppKit
 import CryptoKit
 import Foundation
@@ -75,7 +75,7 @@ private struct ModelShutdownValidation {
         guard CommandLine.arguments.count >= 2 else { fatalError("Supply public JFK fixture path") }
         let app = NSApplication.shared
         app.setActivationPolicy(.prohibited)
-        let delegate = AICameraApplicationDelegate()
+        let delegate = ExoCameraApplicationDelegate()
         app.delegate = delegate
         let fixture = Fixture.retained
         AppLifecycleCoordinator.shared.prepareForTermination = {

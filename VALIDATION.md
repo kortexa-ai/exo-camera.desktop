@@ -19,7 +19,7 @@ all 84 drawn rows with the same pixel count. Installed acceptance in WhatsApp be
 
 ## Camera extension 46: 420v source formats for Catalyst clients
 
-A live `log stream` capture of WhatsApp for Mac (Catalyst, 26.38.20) selecting AI Camera showed
+A live `log stream` capture of WhatsApp for Mac (Catalyst, 26.38.20) selecting Exo Camera showed
 its iOS-style capture graph fail at `BWMultiStreamCameraSourceNode` with `-12780` immediately after
 applying our `32BGRA` stream format, without ever issuing `StartStream`; the view stayed black.
 OBS Virtual Camera (also `32BGRA`) failed identically, while the UVC webcam and the iPhone
@@ -116,7 +116,7 @@ results do not replace the subsequent spoken and independent-call acceptance che
   flush with its top/side edges and has no idle/footer prose. About retains product artwork,
   purpose/link, version, and license. In-app artwork loads the bundled icon without Finder badges.
 - Preview camera/microphone tests and the live level meter work. Closing Preview releases local
-  tests. With QuickTime using AI Camera and AI Camera Microphone, Preview displays processed video
+  tests. With QuickTime using Exo Camera and Exo Camera Microphone, Preview displays processed video
   and disables local tests. Pausing all three optional quick features and closing Preview leave
   both external media lanes active. No Movie Recording recording was started or saved.
 - Settings, Preview, and About share Dock visibility. Closing Settings/About while Preview remains
@@ -137,8 +137,8 @@ results do not replace the subsequent spoken and independent-call acceptance che
 
 - All 175 Swift tests and full build/script/metadata/HAL validation pass. Twenty additional temporary-plist cases execute the actual rendered installer metadata guards, including different valid host/component versions and rejection of missing, malformed, or altered versions. The camera target must declare both its own build and marketing version.
 - Protected installation upgraded the host from 44 to 45 while preserving camera extension 0.1.0/44. Source and installed host strict nested signatures pass. Both host bundles and the protected host marker report 45; their embedded camera extensions report 44.
-- The embedded camera extension's CodeDirectory hash and Info.plist hash match the pre-update bundle. All AI Camera system-extension registration rows, including the enabled 44 row, are unchanged after host installation. No extension activation/deactivation/update, driver installation, or authorization prompt was requested.
-- Installed menu inspection shows Camera Ready and Microphone Ready, with no camera Update action. QuickTime New Movie Recording selected AI Camera and AI Camera Microphone; the host served both external lanes with Camera Ready and no extension replacement. The temporary preview was closed without recording and the agent stopped; the host is unmuted and idle. Real extension-code or protocol updates still require advancing its component version and separate operator acceptance; signing does not bypass macOS replacement approval.
+- The embedded camera extension's CodeDirectory hash and Info.plist hash match the pre-update bundle. All Exo Camera system-extension registration rows, including the enabled 44 row, are unchanged after host installation. No extension activation/deactivation/update, driver installation, or authorization prompt was requested.
+- Installed menu inspection shows Camera Ready and Microphone Ready, with no camera Update action. QuickTime New Movie Recording selected Exo Camera and Exo Camera Microphone; the host served both external lanes with Camera Ready and no extension replacement. The temporary preview was closed without recording and the agent stopped; the host is unmuted and idle. Real extension-code or protocol updates still require advancing its component version and separate operator acceptance; signing does not bypass macOS replacement approval.
 
 ## Build 44: closed-fist mute takes precedence over pinch
 
@@ -153,7 +153,7 @@ results do not replace the subsequent spoken and independent-call acceptance che
 - Full `scripts/validate.sh` passes 171 Swift tests, the unsigned four-target build, metadata/script checks, and the HAL harness. Native caption privacy also verifies exactly one victory start and fist mute through the real coordinator with Realtime enabled.
 - A regression reproduces the prior activation mismatch: one partly hidden folded fingertip could allow a visible victory label while its minimum confidence vetoed activation. Aggregate confidence of all 14 required usable landmarks admits that clear synthetic held pose; uncertain, missing, invalid, stale, brief, conflicting, and repeatedly held input remains bounded or rejected.
 - The native compositor harness checks all seven outgoing status states, clear title-bar space, Show Status suppression, and deterministic animated orb geometry. Its saved images contain generated solid backgrounds only. Hand inference has a separate bounded queue from JPEG preparation.
-- Signed installed-app acceptance with QuickTime New Movie Recording selected both AI Camera and AI Camera Microphone. The menu's Start agent reached Listening while both virtual-device clients were active. Stop preserved the call media lanes. Mute retained the camera, removed microphone demand from physical capture, hid captions, and disabled the agent; explicit Unmute restored availability. The temporary preview was closed without starting a recording, leaving the agent off and the original unmuted preference restored.
+- Signed installed-app acceptance with QuickTime New Movie Recording selected both Exo Camera and Exo Camera Microphone. The menu's Start agent reached Listening while both virtual-device clients were active. Stop preserved the call media lanes. Mute retained the camera, removed microphone demand from physical capture, hid captions, and disabled the agent; explicit Unmute restored availability. The temporary preview was closed without starting a recording, leaving the agent off and the original unmuted preference restored.
 - Strict nested signatures pass for the Release source and installed bundle; both versions and the protected installation marker are 43. No camera extension or audio driver was installed or activated.
 - Physical held-victory acceptance and a user-heard response after this confidence change remain separate; the unattended test proves installed connection during actual external demand, not recognition of a person's hand. No camera or microphone buffers were saved.
 
@@ -194,7 +194,7 @@ results do not replace the subsequent spoken and independent-call acceptance che
 - Show gesture labels appears once under Overlays. Object detection remains enabled, Gestures
   remains under Vision & Gestures, and the user's Show detection boxes off setting is preserved.
   No inference or display preferences were changed during the review.
-- Synthetic native renderer review at 1280×720 and 640×480 confirms AI Camera at the top left and
+- Synthetic native renderer review at 1280×720 and 640×480 confirms Exo Camera at the top left and
   captions at the bottom center with an 18-point inset. Long captions retain their existing bounded
   single-line truncation. Generated gray frames and sample English/Chinese text were used; no
   captured media was saved. No GPU latency measurement or isolated compute window was needed.
@@ -208,7 +208,7 @@ results do not replace the subsequent spoken and independent-call acceptance che
 
 - Full `scripts/validate.sh`: 153 Swift tests, all four unsigned Xcode targets, metadata/script
   checks, and the HAL harness pass. No system component was installed by validation.
-- Signed Release source and `/Applications/AI Camera.app` both report build 37 and pass strict
+- Signed Release source and `/Applications/Exo Camera.app` both report build 37 and pass strict
   nested signature verification. The protected installation generation marker reports 37.
 - Installed Settings shows Base/Small/Large on M4 Pro, distinct tier descriptions, and matching
   Whisper/HY-MT2 Local model rows with green name/check/trash controls. Large download exposes
@@ -477,7 +477,7 @@ Date: 2026-09-05
 
 Date: 2026-09-05
 
-- Authentication uses only the installed official Codex CLI's public account RPCs, with AI Camera's
+- Authentication uses only the installed official Codex CLI's public account RPCs, with Exo Camera's
   own home and OS Keychain namespace. It neither creates an agent thread nor reads the desktop or
   `esp32-voice` credential. The stored profile selects Codex with endpoint auth kind `none`, so older
   app builds cannot silently use the saved API key. No `auth.json` was created in the dedicated home.
@@ -495,7 +495,7 @@ Date: 2026-09-05
   Test Connection accepted the credential on public OpenAI Realtime without opening capture.
   Refresh Login succeeded, followed by another successful public connection.
 - Build 29 adds generation guards for helper startup and credential cleanup. Full validation still
-  passes 135 tests; the protected passwordless installer installed it at `/Applications/AI Camera.app`.
+  passes 135 tests; the protected passwordless installer installed it at `/Applications/Exo Camera.app`.
   Source and installed signatures pass strict deep verification; source, installed, and protected
   marker versions are 29. Neither system component was updated or activated.
 - The user heard a spoken Codex Realtime reply and reported a slight playback speed-up. This
@@ -537,7 +537,7 @@ Date: 2026-09-05
   partial data. Vision cancellation during non-interruptible Core ML compilation discards the
   eventual result and keeps a single job until cleanup finishes.
 - `scripts/install-app.sh` installed signed Release build 26 through its protected passwordless
-  transaction. Strict nested verification passed for both source and `/Applications/AI Camera.app`;
+  transaction. Strict nested verification passed for both source and `/Applications/Exo Camera.app`;
   both bundle versions and the protected install-generation marker read 26. The Release build
   reports upstream quoted-include framework-header warnings and the existing AppIntents metadata
   warning. Host installation did not update or activate the camera extension or HAL driver.
@@ -582,7 +582,7 @@ Machine: the development Mac, Apple Silicon, macOS 26.5.2, Xcode 26.6
   replacement download started. The old temporary file was cleaned up, the model stayed absent,
   the new downloading state survived, and only the new fixture was installed. Cache identity and
   removal checks passed. No real model was removed or downloaded by this harness.
-- The protected passwordless installer installed signed Release build 25 at `/Applications/AI Camera.app`.
+- The protected passwordless installer installed signed Release build 25 at `/Applications/Exo Camera.app`.
   Source and installed bundles passed strict deep signature verification; source, installed host,
   and protected marker all report 25. Neither system component was updated or activated. Native
   tests used synthetic text and temporary fixtures, with no Keychain access or captured media.
@@ -616,10 +616,10 @@ Machine: the development Mac, Apple Silicon, macOS 26.5.2, Xcode 26.6
 - Review also corrected partial ASR windows and resampler state at Realtime transitions, so the
   resumed batch lane cannot upload audio retained from a Realtime turn. Translation runs outside
   the transport event consumer with one active task and one replaceable pending final caption.
-- The protected installer built and relaunched signed Release build 24 at `/Applications/AI Camera.app`
+- The protected installer built and relaunched signed Release build 24 at `/Applications/Exo Camera.app`
   through passwordless `sudo`. Source and installed bundles passed strict deep signature checks;
   both bundle versions and the protected generation marker report 24. The installed app contains
-  AICameraCore and llama frameworks, with no WebRTC framework. The HAL driver remains build 12;
+  ExoCameraCore and llama frameworks, with no WebRTC framework. The HAL driver remains build 12;
   neither system component was updated or activated.
 - Audible one-utterance replies, VAD-to-playback completion, live tool continuation, and translated
   captions still require acceptance. Dedicated Codex authentication, embedded Whisper, and Settings
@@ -636,7 +636,7 @@ Machine: the development Mac, Apple Silicon, macOS 26.5.2, Xcode 26.6
 - Normal Transcription Settings now identifies OpenAI directly and exposes no custom or nominally embedded provider. Embedded Whisper remains a separate milestone and will appear only with a real integrity-checked model download, readiness, and removal lifecycle.
 - At launch, import, and reload, an enabled non-OpenAI transcription endpoint is replaced by canonical OpenAI when the shared Keychain credential exists. Without that credential, the unsupported lane, translation, and transcript overlay are disabled. The prior endpoint definition remains inert so profile round trips do not destroy advanced metadata.
 - `swift test` passed 101 tests with zero failures. `scripts/validate.sh` passed the complete safe suite, unsigned four-target build, strict C checks, installer rendering, and HAL harness without installing or activating a system component.
-- The protected installer installed and relaunched signed Release build 23 at `/Applications/AI Camera.app`; strict deep signature verification passed. The saved active lane migrated from `http://127.0.0.1:4002` to `https://api.openai.com` with adapter `openAITranscription`, model `gpt-transcribe`, automatic language selection, and the existing Keychain account reference. The old `asr` endpoint remains inert.
+- The protected installer installed and relaunched signed Release build 23 at `/Applications/Exo Camera.app`; strict deep signature verification passed. The saved active lane migrated from `http://127.0.0.1:4002` to `https://api.openai.com` with adapter `openAITranscription`, model `gpt-transcribe`, automatic language selection, and the existing Keychain account reference. The old `asr` endpoint remains inert.
 - Signed UI acceptance showed Conversation off, Transcription on, Provider **OpenAI**, model/language controls, the correctly masked shared key, and nested local translation. No custom or embedded provider was offered. No microphone test, transcription request, recording, or media persistence was started.
 
 ## Build 22 independent OpenAI transcription
@@ -649,7 +649,7 @@ Machine: the development Mac, Apple Silicon, macOS 26.5.2, Xcode 26.6
 - Compatible imported ASR endpoints remain selected when Transcription is toggled back on. An explicit save switches that lane to OpenAI. Active Realtime sessions suppress and cancel batch ASR while continuing to publish Realtime transcripts, so the same microphone audio is not uploaded twice.
 - Configuration validation now requires a compatible transcription endpoint whenever Transcription itself is enabled, even if Conversation is disabled. Unit coverage verifies the independent configuration and the OpenAI multipart model, language, audio, route, and response contract.
 - `swift test` passed 101 tests with zero failures. `scripts/validate.sh` passed the full safe suite, unsigned four-target Xcode build, strict C checks, installer rendering checks, and HAL harness. `git diff --check` passed. Validation installed or activated no driver or system extension.
-- The approved protected installer built and installed Apple Development-signed Release build 22 at `/Applications/AI Camera.app`, then relaunched it. Strict deep signature verification passed and the installed host reports build 22. The intentionally unchanged HAL driver remains build 12.
+- The approved protected installer built and installed Apple Development-signed Release build 22 at `/Applications/Exo Camera.app`, then relaunched it. Strict deep signature verification passed and the installed host reports build 22. The intentionally unchanged HAL driver remains build 12.
 - Signed UI acceptance showed Conversation disabled while Transcription remained enabled, the service/model/language controls, correctly masked shared OpenAI key, and nested Translate controls. The existing compatible local endpoint remained active with an explicit offer to switch to OpenAI. No microphone test, transcription request, recording, or media persistence was started during UI acceptance.
 
 ## Build 14 dependency refresh and notarized distribution candidate
@@ -662,7 +662,7 @@ Machine: the development Mac, Apple Silicon, macOS 26.5.2, Xcode 26.6
 - The overlay spike now records the page's three.js revision and WebGL2 availability. Its development-only content security policy permits its existing inline harness script; the production overlay keeps its strict external-script policy. The final r185 spike rendered 55 frames in two seconds at 29.7 fps through WebGL2 and completed alpha-compositing samples successfully.
 - `scripts/validate.sh` passed with 89 Swift tests and a successful unsigned four-target build. The strict C11 HAL harness and its AddressSanitizer/UndefinedBehaviorSanitizer and ThreadSanitizer variants passed. `git diff --check` passed. The audio driver remains the previously validated build 12; the app and camera extension report build 14.
 - The universal Release archive and exported app, frameworks, camera system extension, and HAL driver are signed with the existing Developer ID Application identity. Strict nested verification passed, and neither the app nor extension contains `get-task-allow`.
-- Apple accepted notarization submission `a790793d-5572-4bdd-b7e5-6aedaa3936eb` with no issues. The ticket was stapled and validated, strict signature verification still passed, and Gatekeeper accepted the app with source `Notarized Developer ID`. The final stapled archive is `build/AICamera-0.1.0-build14-notarized-final.zip`, SHA-256 `514407f0369f4cc88b3184e0559b408a09dd862bfd03d0c3b3b8b733d4e42a35`.
+- Apple accepted notarization submission `a790793d-5572-4bdd-b7e5-6aedaa3936eb` with no issues. The ticket was stapled and validated, strict signature verification still passed, and Gatekeeper accepted the app with source `Notarized Developer ID`. The final stapled archive is `build/ExoCamera-0.1.0-build14-notarized-final.zip`, SHA-256 `514407f0369f4cc88b3184e0559b408a09dd862bfd03d0c3b3b8b733d4e42a35`.
 - This work did not install or launch build 14, request media access, activate or replace the camera extension, copy or reload the HAL driver, register a login item, or change System Settings. Installed build 13 remains active and unchanged.
 
 ## Builds 11–13 post-restart demand-delivery validation
@@ -680,10 +680,10 @@ Machine: the development Mac, Apple Silicon, macOS 26.5.2, Xcode 26.6
 - Build 12 defers demand reconciliation to the next MainActor turn. An independent review confirmed that level-triggered reconciliation remains safe under rapid transitions and that analogous manager/configuration subscriptions are already deferred. Build 12 passed 68 Swift tests, full non-installing validation, the strict HAL harness, sanitizer variants, strict Release signing, and `git diff --check`.
 - With explicit approval, the protected installer installed the strict-signed build-12 host. The in-app microphone update then installed HAL build 12 and reloaded Core Audio through a visible administrator authorization. The protected marker, app, and HAL driver report 12, strict signature checks pass, and `get-task-allow` is absent. Camera extension build 10 remained active and was not updated.
 - Four normal microphone cycles and 50–100 ms clients each produced live callbacks, demand `0 → 1 → 0`, physical Yeti acquisition only while requested, prompt host startup, return to idle, and hardware release. Two simultaneous clients produced `0 → 1 → 2 → 1 → 0`. Forced client exit cleared demand. External demand cancelled local tests, and a client that stayed open across host quit/relaunch was served after relaunch. The Core Audio watcher and UI state agreed except when a separately configured transcription endpoint reported its own connection failure.
-- A no-recording QuickTime Movie Recording preview exposed and selected **AI Camera**, but the host remained at **Waiting for a camera client**. Unified logs showed the build-10 extension running inside `cmiodalassistant` and resolving its app-group container under that service account, separate from the GUI user's container; sandbox policy denied the expected shared JSON-file access. QuickTime was closed without recording or saving, all temporary clients exited, HAL demand returned to zero, and the physical microphone was released.
+- A no-recording QuickTime Movie Recording preview exposed and selected **Exo Camera**, but the host remained at **Waiting for a camera client**. Unified logs showed the build-10 extension running inside `cmiodalassistant` and resolving its app-group container under that service account, separate from the GUI user's container; sandbox policy denied the expected shared JSON-file access. QuickTime was closed without recording or saving, all temporary clients exited, HAL demand returned to zero, and the physical microphone was released.
 - Build 13 replaces the unusable camera file transport with a bounded timestamped `NSData` snapshot on the read-only `4cc_aicd_glob_0000` CoreMediaIO device property. Source start/stop transitions and one-second active heartbeats update the DAL cache. The host resolves the device by stable UID, reads only 1–4096 raw bytes, retries one size race, decodes the bounded snapshot, and rejects missing, malformed, negative-count, future-dated, or older-than-two-second values. Four new shared-wire tests bring the Swift total to 72. Full non-installing validation, the strict HAL harness, unsigned four-target build, strict Release signing, absence of `get-task-allow`, embedded property-name inspection, and `git diff --check` pass. An independent current-macOS review confirmed the custom-key mapping, raw `NSData` ABI, UID lookup, memory ownership, locking, cache notification, and fail-closed freshness behavior with no blocking defect. CoreMediaIO reports aggregate first-client/last-client source activity, normally 0 or 1 rather than exact client cardinality; that matches the host's `> 0` contract. The app and extension report build 13; the intentionally unchanged bundled audio driver reports build 12.
 - With separate explicit approval, the protected installer installed app build 13 and left HAL build 12 unchanged. Strict installed signature and entitlement checks pass, and the protected generation marker reports 13. The camera update inherited approval and reached **activated enabled** for build 13. macOS invalidated build 10 and marked it for removal at restart, but launchd rejected the build-13 job submission because the build-10 job was still in progress. Build 10 then exited, build 13 did not launch, the virtual camera disappeared from bounded AVFoundation discovery, and the native `aicd` probe failed closed with `device-missing`. After an explicit status refresh, the Camera row correctly reported **Active — device unavailable** and instructed a restart. Live property and camera acceptance require that restart; none was performed.
-- After a separately approved restart, build 10 was removed and build 13 remained the only **activated enabled** generation. Its provider process runs under `cmiodalassistant`, bounded AVFoundation discovery again exposes **AI Camera** at stable UID `38A6609A-FA9E-44FE-B667-4536B8491009`, and the refreshed host reports both virtual devices **Ready**.
+- After a separately approved restart, build 10 was removed and build 13 remained the only **activated enabled** generation. Its provider process runs under `cmiodalassistant`, bounded AVFoundation discovery again exposes **Exo Camera** at stable UID `38A6609A-FA9E-44FE-B667-4536B8491009`, and the refreshed host reports both virtual devices **Ready**.
 - A native CoreMediaIO probe resolved the live device, verified global/main selector `aicd`, confirmed `settable=false`, read 123–124 raw bytes, and decoded a fresh idle snapshot with aggregate count 0. A normal no-recording QuickTime source changed `aicd` `0 → 1 → 0`; the host changed **Ready → Camera in use → Ready**, authorized its feeder, and returned to idle after client close.
 - Two separate QuickTime processes opened the source concurrently without recording. CoreMediaIO correctly kept aggregate `aicd` at 1 after the first client closed and returned it to 0 only after the final client closed. This confirms the first-client/last-client stream contract rather than exact client cardinality.
 - Combined camera and virtual-microphone demand produced `aicd=1`, `aicc=1`, physical Yeti running, host state **Camera and microphone in use**, and 469 audio callbacks. After the audio client stopped, `aicc` returned to 0 and the host remained **Camera in use** until the camera client closed. Final physical input state returned to zero.
@@ -715,7 +715,7 @@ Signed native host acceptance passed for the following cases without persisting 
 - Both inline source settings buttons opened the foreground Settings window on **General** and targeted their stable Camera or Microphone sections. Updated capture copy and the shared physical-input eligibility note were present.
 - Independent lifecycle, UX, and AVCapture reviews found no remaining concrete source-level issue after queue separation, full audio format preservation, partial-graph rollback, bounded copied-buffer caps, and teardown hardening.
 
-Two daemon-level acceptance items remain after the user-owned reboot. The extension reports build 10 as activated/enabled, but macOS is not currently publishing **AI Camera** and build 9 remains queued for removal; the permanent health row now reports **Active — device unavailable** instead of **Ready**. The on-disk HAL binary matches the current build and **AI Camera Microphone** is visible, but the live Core Audio device object does not yet expose the new `aicc` demand property. A bounded FFmpeg client read the virtual microphone successfully into a null sink, but could not trigger client-demand takeover in that stale live instance. Reboot or an explicitly approved Core Audio refresh is required before external-client cancellation, cross-lane takeover, and final physical-device release can be accepted.
+Two daemon-level acceptance items remain after the user-owned reboot. The extension reports build 10 as activated/enabled, but macOS is not currently publishing **Exo Camera** and build 9 remains queued for removal; the permanent health row now reports **Active — device unavailable** instead of **Ready**. The on-disk HAL binary matches the current build and **Exo Camera Microphone** is visible, but the live Core Audio device object does not yet expose the new `aicc` demand property. A bounded FFmpeg client read the virtual microphone successfully into a null sink, but could not trigger client-demand takeover in that stale live instance. Reboot or an explicitly approved Core Audio refresh is required before external-client cancellation, cross-lane takeover, and final physical-device release can be accepted.
 
 ## Build 10 signed installation and physical-input safety follow-up
 
@@ -723,15 +723,15 @@ Date: 2026-08-16
 
 Machine: the development Mac, Apple Silicon, macOS 26.5.2, Xcode 26.6
 
-- The protected installer replaced `/Applications/AI Camera.app` with a strict-signed Release build 10. The app is running; camera extension build 10 reports **activated enabled**; HAL microphone build 10 is loaded and visible to Core Audio. Camera extension build 9 remains reboot-gated for cleanup.
+- The protected installer replaced `/Applications/Exo Camera.app` with a strict-signed Release build 10. The app is running; camera extension build 10 reports **activated enabled**; HAL microphone build 10 is loaded and visible to Core Audio. Camera extension build 9 remains reboot-gated for cleanup.
 - The menu-bar panel keeps permanent virtual-device health rows, reports the resolved physical inputs, uses a foregrounded Settings window, and keeps the login-item control under **Settings → General**.
 - System-default resolution now reads the CoreMediaIO camera default and Core Audio microphone default. Only recognized direct-hardware transports are eligible. Software loopbacks, aggregate/auto-aggregate, network, unknown-transport, and wired/wireless/legacy Continuity inputs fail closed.
 - If an ineligible default is selected, the host chooses the first compatible physical input in stable name-and-ID order and shows an orange warning naming the default and fallback. If no compatible input exists, capture remains blocked until the user selects a compatible physical device or video frame rate.
-- A read-only native resolver check selected **HD Webcam eMeet C950** and **Yeti Stereo Microphone** from the current defaults. It excluded OBS Virtual Camera, the Continuity camera/microphone, BlackHole, and AI Camera from physical-input choices while preserving supported duplex virtual devices as advanced audio destinations.
+- A read-only native resolver check selected **HD Webcam eMeet C950** and **Yeti Stereo Microphone** from the current defaults. It excluded OBS Virtual Camera, the Continuity camera/microphone, BlackHole, and Exo Camera from physical-input choices while preserving supported duplex virtual devices as advanced audio destinations.
 - `scripts/validate.sh` passed with 62 Swift tests and a successful unsigned four-target Xcode build. The strict C11 HAL harness passed. AddressSanitizer/UndefinedBehaviorSanitizer and ThreadSanitizer HAL variants also passed. `git diff --check` passed.
 - Pure policy tests cover known physical transports, virtual/aggregate/network/unknown/Continuity rejection, default retention, deterministic fallback admission, and no-hardware failure. An independent resolver review found no remaining issues after compatibility, ordering, warning-text, and fallback-API corrections.
 
-This follow-up did not change the system camera or microphone default to AI Camera. A live self-default warning/fallback check and the broader independent/simultaneous/multi-client demand matrix remain signed native acceptance work.
+This follow-up did not change the system camera or microphone default to Exo Camera. A live self-default warning/fallback check and the broader independent/simultaneous/multi-client demand matrix remain signed native acceptance work.
 
 ## Build 10 automatic-lifecycle validation
 
@@ -778,7 +778,7 @@ Safe validation does not request media access, start inference services, install
 
 ## Development-signed camera acceptance
 
-Build 9 is installed at `/Applications/AI Camera.app`. The camera extension reports `(0.1.0/9) [activated enabled]`.
+Build 9 is installed at `/Applications/Exo Camera.app`. The camera extension reports `(0.1.0/9) [activated enabled]`.
 
 All camera clients were bounded AVFoundation canaries. They kept media in memory and wrote no frames to disk.
 
@@ -795,12 +795,12 @@ Older terminated camera-extension generations remain queued for removal by macOS
 
 ## Audio and conversation acceptance
 
-- The installed HAL driver publishes the duplex **AI Camera Microphone** device with UID `ai.kortexa.aicamera.audio.device` at 48 kHz. Independent clients previously captured non-silent microphone loopback, concurrent reads, and silence after proxy stop.
+- The installed HAL driver publishes the duplex **Exo Camera Microphone** device with UID `ai.kortexa.exocamera.audio.device` at 48 kHz. Independent clients previously captured non-silent microphone loopback, concurrent reads, and silence after proxy stop.
 - Silent ASR → agent → bounded streamed PCM TTS completed in a development-signed build. Complete-WAV fallback, repeated bounded admissions, virtual-microphone output, and accepted barge-in cancellation passed.
 - The changed local ASR, agent, and TTS routes passed their real request paths. ASR accepted both WAV and raw PCM requests with the pinned MLX 0.31.1 runtime.
 - No raw media was persisted. In-memory acceptance buffers were released after aggregate metrics were computed.
 
-After acceptance, the normal wake-phrase profile was restored. The default input is **Yeti Stereo Microphone**, the default output is **HyperX Virtual Surround Sound**, AI Camera is stopped, and both virtual devices report **Ready**.
+After acceptance, the normal wake-phrase profile was restored. The default input is **Yeti Stereo Microphone**, the default output is **HyperX Virtual Surround Sound**, Exo Camera is stopped, and both virtual devices report **Ready**.
 
 ## Remaining release boundary
 

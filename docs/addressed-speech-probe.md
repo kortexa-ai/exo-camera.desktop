@@ -25,7 +25,7 @@ The ChatML input relies on the tokenizer to add BOS; a second BOS is not inserte
 
 The labels describe evidence in the text:
 
-- `agent`: an explicit direct address to AI Camera.
+- `agent`: an explicit direct address to Exo Camera.
 - `other`: a clear address to another person, or discussion/quotation of the assistant.
 - `uncertain`: either listener could be the addressee.
 
@@ -49,8 +49,8 @@ is LFM2-350M:
 
 LFM2 matched 23 of 60 labels. For a proposed decision to send speech to the agent, it would
 miss 14 direct requests and admit seven cases without a clear agent address. It never abstained.
-For example, it rejected “AI Camera, what is the weather in Seattle?” but admitted “Alex, can you
-check the weather for our picnic?” It also admitted “Maya, try saying AI Camera, show a timer.”
+For example, it rejected “Exo Camera, what is the weather in Seattle?” but admitted “Alex, can you
+check the weather for our picnic?” It also admitted “Maya, try saying Exo Camera, show a timer.”
 
 The newer LFM2.5-350M produced a different failure pattern:
 
@@ -63,7 +63,7 @@ The newer LFM2.5-350M produced a different failure pattern:
 It matched 19 labels and never selected agent. Zero false admissions here comes with missing all
 20 direct requests. This does not make it a useful listening control.
 
-A transparent baseline recognizes AI Camera at the beginning or after a comma at the end of the
+A transparent baseline recognizes Exo Camera at the beginning or after a comma at the end of the
 utterance; everything else is uncertain. It found 19 of 20 direct requests, missed the mid-sentence
 address in a19, and admitted none of the 40 other/uncertain cases. It matched 39 of 60 three-way
 labels because it does not attempt to distinguish other from uncertain. Its result does not prove
@@ -103,7 +103,7 @@ predate this guard. No prompt was tuned and no model was trained to improve thei
 The optional probe is separate from normal app validation. It needs an existing llama-completion
 binary with LFM2 support. It installs no packages and starts no service. Review the model's
 [LFM Open License v1.0](https://huggingface.co/LiquidAI/LFM2-350M-GGUF/blob/8fdc9d526b7ed346b19257551b05816c7912ecc2/LICENSE)
-before use or redistribution; the weights are not bundled with AI Camera.
+before use or redistribution; the weights are not bundled with Exo Camera.
 
 ```sh
 HF_HUB_DISABLE_IMPLICIT_TOKEN=1 hf download LiquidAI/LFM2-350M-GGUF \

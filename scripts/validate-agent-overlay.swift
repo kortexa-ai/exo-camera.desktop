@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import AppKit
 import CoreImage
 import CoreVideo
@@ -7,7 +7,7 @@ import CoreVideo
 @main
 struct AgentOverlayValidation {
     @MainActor static func main() throws {
-        let directory = URL(fileURLWithPath: "/tmp/aicamera-agent-overlays", isDirectory: true)
+        let directory = URL(fileURLWithPath: "/tmp/exocamera-agent-overlays", isDirectory: true)
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         var input: CVPixelBuffer?
         precondition(CVPixelBufferCreate(nil, 1280, 720, kCVPixelFormatType_32BGRA,
@@ -16,9 +16,9 @@ struct AgentOverlayValidation {
         let frame = input!
         CIContext().render(CIImage(color: CIColor(red: 0.22, green: 0.27, blue: 0.32))
             .cropped(to: CGRect(x: 0, y: 0, width: 1280, height: 720)), to: frame)
-        var capture = AICameraConfiguration.default.capture
+        var capture = ExoCameraConfiguration.default.capture
         capture.width = 1280; capture.height = 720; capture.mirrorVideo = false
-        var overlays = AICameraConfiguration.default.overlays
+        var overlays = ExoCameraConfiguration.default.overlays
         overlays.enabled = true
         overlays.showStatus = false
         overlays.showDetectionBoxes = false
@@ -28,7 +28,7 @@ struct AgentOverlayValidation {
         let reference = bytes(baseline)
         overlays.showStatus = true
         for state in AgentOverlayStatus.allCases {
-            var scene = SceneSnapshot(status: "AI Camera")
+            var scene = SceneSnapshot(status: "Exo Camera")
             scene.agentStatus = state
             let output = renderer.render(input: frame, capture: capture, overlay: overlays, snapshot: scene)!
             let data = bytes(output)

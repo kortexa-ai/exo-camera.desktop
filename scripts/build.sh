@@ -17,8 +17,8 @@ if [[ "${SIGNING:-0}" == "1" ]]; then
 fi
 
 exec xcodebuild \
-    -project AICamera.xcodeproj \
-    -scheme AICamera \
+    -project ExoCamera.xcodeproj \
+    -scheme ExoCamera \
     -configuration "$CONFIGURATION" \
     -destination 'platform=macOS' \
     -derivedDataPath "$ROOT/build/DerivedData" \

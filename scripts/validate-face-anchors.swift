@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import AppKit
 import CoreImage
 import CoreVideo
@@ -106,7 +106,7 @@ struct FaceAnchorValidation {
         return count > 100
     }
     static let sun = """
-    const group = new THREE.Group(); AICamera.scene.add(group);
+    const group = new THREE.Group(); ExoCamera.scene.add(group);
     const gold = new THREE.MeshStandardMaterial({color:0xffbb38, emissive:0xff8800, emissiveIntensity:0.35, roughness:0.65});
     group.add(new THREE.Mesh(new THREE.SphereGeometry(0.35,32,24), gold));
     const rays = new THREE.Group(); group.add(rays);
@@ -118,8 +118,8 @@ struct FaceAnchorValidation {
     const smile=new THREE.Mesh(new THREE.TorusGeometry(0.1,0.014,8,24,Math.PI),ink);
     smile.rotation.z=Math.PI; smile.position.set(0,-0.03,0.35); group.add(smile);
     let t=0;
-    AICamera.onFrame(dt => { t+=dt; const f=AICamera.faceAnchor; group.visible=!!f; if(!f)return;
-      const p=AICamera.facePosition(f.top), l=AICamera.facePosition({x:f.box.x,y:f.center.y}), r=AICamera.facePosition({x:f.box.x+f.box.width,y:f.center.y});
+    ExoCamera.onFrame(dt => { t+=dt; const f=ExoCamera.faceAnchor; group.visible=!!f; if(!f)return;
+      const p=ExoCamera.facePosition(f.top), l=ExoCamera.facePosition({x:f.box.x,y:f.center.y}), r=ExoCamera.facePosition({x:f.box.x+f.box.width,y:f.center.y});
       if(!p||!l||!r){group.visible=false;return;} const scale=Math.abs(r.x-l.x)*0.6;
       group.scale.setScalar(scale); group.position.copy(p); group.position.y+=scale*1.15;
       group.rotation.z=f.roll; rays.rotation.z=t*0.15; });

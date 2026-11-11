@@ -1,7 +1,7 @@
 // Compile with BuiltinTranslationClient.swift and BuiltinTranslationModelController.swift,
-// linking the generated Debug AICameraCore/llama frameworks. See docs/testing.md.
+// linking the generated Debug ExoCameraCore/llama frameworks. See docs/testing.md.
 // Uses synthetic text and disposable fixtures only. Never downloads weights or reads Keychain.
-import AICameraCore
+import ExoCameraCore
 import Darwin
 import Foundation
 
@@ -29,7 +29,7 @@ private actor PendingDownloads {
         if CommandLine.arguments.contains("--lifecycle-only") { return }
         let controller = BuiltinTranslationModelController()
         guard let client = controller.makeTranslationClient() as? BuiltinTranslationClient else {
-            throw ProbeError.failed("Download HY-MT2 in AI Camera before running native inference validation.")
+            throw ProbeError.failed("Download HY-MT2 in Exo Camera before running native inference validation.")
         }
         try require(controller.makeTranslationClient() as? BuiltinTranslationClient === client, "Client was not reused")
         for target in ["zh", "ja", "ar"] {
@@ -76,7 +76,7 @@ private actor PendingDownloads {
     }
 
     @MainActor private static func validateDownloadOwnership() async throws {
-        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("aicamera-translation-\(UUID())")
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent("exocamera-translation-\(UUID())")
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: directory) }
         let pending = PendingDownloads()

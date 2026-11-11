@@ -10,7 +10,7 @@ hardware camera ──AVCaptureVideoDataOutput──> render/overlay ──> pre
           ├──> bounded Core ML / detector adapter          v
           └──> VLM adapter                       camera system extension
                                                          │
-                                                         └──> AI Camera source
+                                                         └──> Exo Camera source
 
 hardware microphone ──AVCaptureAudioDataOutput──> two-slot copied PCM ──> bounded conversion queue
           ├──> 16 kHz mono windows ──> bounded ASR lane ──> wake gate ──> agent
@@ -19,17 +19,17 @@ hardware microphone ──AVCaptureAudioDataOutput──> two-slot copied PCM �
                                    ├──AVAudioEngine mixer<───────────────┘
                                    └──> HAL plug-in output ring
                                                 │
-                                                └──> AI Camera Microphone input
+                                                └──> Exo Camera Microphone input
 ```
 
 ## Targets
 
 | Target | Purpose |
 |---|---|
-| `AICameraCore` | Versioned profiles, validation, privacy gate, normalized events, adapter protocols, HTTP clients, WAV handling, and actor state. |
-| `AICamera` | Menu-bar UI, independent AVFoundation capture lanes, Vision gestures, overlay rendering, pipeline coordination, virtual-device feeder, authorization, demand monitoring, and automatic lifecycle reconciliation. |
-| `AICameraCameraExtension` | CoreMediaIO source and sink streams. It forwards one feeder frame at a time and supplies an animated placeholder when the host is absent. |
-| `AICameraAudio` | Duplex Core Audio HAL plug-in with a bounded Float32 stereo loopback ring at 44.1 or 48 kHz. |
+| `ExoCameraCore` | Versioned profiles, validation, privacy gate, normalized events, adapter protocols, HTTP clients, WAV handling, and actor state. |
+| `ExoCamera` | Menu-bar UI, independent AVFoundation capture lanes, Vision gestures, overlay rendering, pipeline coordination, virtual-device feeder, authorization, demand monitoring, and automatic lifecycle reconciliation. |
+| `ExoCameraCameraExtension` | CoreMediaIO source and sink streams. It forwards one feeder frame at a time and supplies an animated placeholder when the host is absent. |
+| `ExoCameraAudio` | Duplex Core Audio HAL plug-in with a bounded Float32 stereo loopback ring at 44.1 or 48 kHz. |
 
 ## Demand-driven lifecycle
 
@@ -88,7 +88,7 @@ The HAL plug-in is not an inference component. It exposes the samples written to
 
 ## Typed composition
 
-AI Camera uses a typed topology rather than arbitrary executable plug-ins. A profile chooses endpoints for these roles:
+Exo Camera uses a typed topology rather than arbitrary executable plug-ins. A profile chooses endpoints for these roles:
 
 - zero or one local hand-gesture stage;
 - zero or more configured detector/VLM stage entries;

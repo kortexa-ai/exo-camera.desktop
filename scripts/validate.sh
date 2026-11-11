@@ -18,7 +18,7 @@ from pathlib import Path
 for script in Path('scripts').glob('*.py'):
     ast.parse(script.read_text(), filename=str(script))
 PY
-VALIDATION_TMP="$(mktemp -d "${TMPDIR:-/tmp}/aicamera-validation.XXXXXX")"
+VALIDATION_TMP="$(mktemp -d "${TMPDIR:-/tmp}/exocamera-validation.XXXXXX")"
 trap 'rm -rf "$VALIDATION_TMP"' EXIT
 cp scripts/installer-transaction.applescript "$VALIDATION_TMP/install-app.applescript"
 osacompile \
@@ -28,10 +28,10 @@ sed 's/do shell script commandText with administrator privileges/return commandT
     "$VALIDATION_TMP/install-app.applescript" \
     > "$VALIDATION_TMP/install-app-render.applescript"
 osascript "$VALIDATION_TMP/install-app-render.applescript" \
-    "$ROOT/build/DerivedData/Build/Products/Release/AI Camera.app" \
-    '/Applications/AI Camera.app' \
-    'ai.kortexa.aicamera' \
-    'ai.kortexa.aicamera.camera-extension' \
+    "$ROOT/build/DerivedData/Build/Products/Release/Exo Camera.app" \
+    '/Applications/Exo Camera.app' \
+    'ai.kortexa.exocamera' \
+    'ai.kortexa.exocamera.camera-extension' \
     > "$VALIDATION_TMP/install-app-root-command.sh"
 /bin/sh -n "$VALIDATION_TMP/install-app-root-command.sh"
 python3 scripts/validate-install-versions.py "$VALIDATION_TMP/install-app-root-command.sh"
@@ -58,97 +58,97 @@ SDKROOT="$(xcrun --sdk macosx --show-sdk-path)"
 xcrun --sdk macosx clang \
     -std=c11 -fsyntax-only -Wall -Wextra -Wpedantic -Werror \
     -isysroot "$SDKROOT" \
-    Sources/AICameraAudioDriver/AICameraAudioDriver.c
+    Sources/ExoCameraAudioDriver/ExoCameraAudioDriver.c
 
 xcodebuild \
-    -project AICamera.xcodeproj \
-    -scheme AICamera \
+    -project ExoCamera.xcodeproj \
+    -scheme ExoCamera \
     -configuration Debug \
     -destination 'platform=macOS' \
     -derivedDataPath "$ROOT/build/DerivedData-Validation" \
     CODE_SIGNING_ALLOWED=NO \
     build
 
-APP="$ROOT/build/DerivedData-Validation/Build/Products/Debug/AI Camera.app"
-DRIVER="$APP/Contents/Resources/AICameraAudioDriver.driver"
-CAMERA_EXTENSION="$APP/Contents/Library/SystemExtensions/ai.kortexa.aicamera.camera-extension.systemextension"
+APP="$ROOT/build/DerivedData-Validation/Build/Products/Debug/Exo Camera.app"
+DRIVER="$APP/Contents/Resources/ExoCameraAudioDriver.driver"
+CAMERA_EXTENSION="$APP/Contents/Library/SystemExtensions/ai.kortexa.exocamera.camera-extension.systemextension"
 test -d "${APP:?}"
 test -d "${DRIVER:?}"
 test -d "${CAMERA_EXTENSION:?}"
 test -f "$DRIVER/Contents/Resources/en.lproj/Localizable.strings"
 test -f "$DRIVER/Contents/Resources/APPLE_NULLAUDIO_LICENSE.txt"
 plutil -extract CFBundleIdentifier raw "$APP/Contents/Info.plist" \
-    | grep -qx 'ai.kortexa.aicamera'
+    | grep -qx 'ai.kortexa.exocamera'
 plutil -extract CFBundleIdentifier raw "$DRIVER/Contents/Info.plist" \
-    | grep -qx 'ai.kortexa.aicamera.audio.driver'
+    | grep -qx 'ai.kortexa.exocamera.audio.driver'
 plutil -extract CFBundleIdentifier raw "$CAMERA_EXTENSION/Contents/Info.plist" \
-    | grep -qx 'ai.kortexa.aicamera.camera-extension'
-nm -gU "$DRIVER/Contents/MacOS/AICameraAudioDriver" \
-    | grep -q '_AICameraAudioDriver_Create'
+    | grep -qx 'ai.kortexa.exocamera.camera-extension'
+nm -gU "$DRIVER/Contents/MacOS/ExoCameraAudioDriver" \
+    | grep -q '_ExoCameraAudioDriver_Create'
 
-HARNESS="$ROOT/build/aicamera-audio-driver-harness"
+HARNESS="$ROOT/build/exocamera-audio-driver-harness"
 xcrun --sdk macosx clang \
     -std=c11 -Wall -Wextra -Wpedantic -Werror \
     -isysroot "$SDKROOT" \
-    Tests/AICameraAudioDriverTests/LoopbackHarness.c \
+    Tests/ExoCameraAudioDriverTests/LoopbackHarness.c \
     -framework CoreAudio -framework CoreFoundation \
     -o "$HARNESS"
 "$HARNESS" "$DRIVER"
 
 FRAMEWORKS="$ROOT/build/DerivedData-Validation/Build/Products/Debug"
 xcrun swiftc -parse-as-library -O \
-    Sources/AICameraApp/PCMBufferConverter.swift scripts/validate-audio-conversion.swift \
+    Sources/ExoCameraApp/PCMBufferConverter.swift scripts/validate-audio-conversion.swift \
     -o "$VALIDATION_TMP/audio-conversion"
 "$VALIDATION_TMP/audio-conversion"
 xcrun swiftc -parse-as-library -O \
-    -F "$FRAMEWORKS" -framework AICameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
-    Sources/AICameraApp/AgentNotesController.swift Sources/AICameraApp/OverlayRenderer.swift \
-    Sources/AICameraApp/AgentCardRenderer.swift Sources/AICameraApp/AgentStatusRenderer.swift \
+    -F "$FRAMEWORKS" -framework ExoCameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
+    Sources/ExoCameraApp/AgentNotesController.swift Sources/ExoCameraApp/OverlayRenderer.swift \
+    Sources/ExoCameraApp/AgentCardRenderer.swift Sources/ExoCameraApp/AgentStatusRenderer.swift \
     scripts/validate-agent-tools.swift -o "$VALIDATION_TMP/agent-tools"
 "$VALIDATION_TMP/agent-tools" "$VALIDATION_TMP/synthetic-cards"
 xcrun swiftc -parse-as-library -O \
-    -F "$FRAMEWORKS" -framework AICameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
-    Sources/AICameraApp/AgentCardRenderer.swift scripts/validate-agent-weather.swift \
+    -F "$FRAMEWORKS" -framework ExoCameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
+    Sources/ExoCameraApp/AgentCardRenderer.swift scripts/validate-agent-weather.swift \
     -o "$VALIDATION_TMP/agent-weather"
 "$VALIDATION_TMP/agent-weather" --fixture "$VALIDATION_TMP/synthetic-weather"
 xcrun swiftc -parse-as-library -O \
-    -F "$FRAMEWORKS" -framework AICameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
-    Sources/AICameraApp/OverlayScriptRenderer.swift scripts/validate-overlay-runtime.swift \
+    -F "$FRAMEWORKS" -framework ExoCameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
+    Sources/ExoCameraApp/OverlayScriptRenderer.swift scripts/validate-overlay-runtime.swift \
     -o "$VALIDATION_TMP/overlay-runtime"
 "$VALIDATION_TMP/overlay-runtime" "$ROOT/Resources/Overlay/overlay.html"
 xcrun swiftc -parse-as-library -O \
-    -F "$FRAMEWORKS" -framework AICameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
-    Sources/AICameraApp/FaceAnchorDetector.swift Sources/AICameraApp/OverlayScriptRenderer.swift \
-    Sources/AICameraApp/OverlayRenderer.swift Sources/AICameraApp/AgentCardRenderer.swift \
-    Sources/AICameraApp/AgentStatusRenderer.swift scripts/validate-face-anchors.swift \
+    -F "$FRAMEWORKS" -framework ExoCameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
+    Sources/ExoCameraApp/FaceAnchorDetector.swift Sources/ExoCameraApp/OverlayScriptRenderer.swift \
+    Sources/ExoCameraApp/OverlayRenderer.swift Sources/ExoCameraApp/AgentCardRenderer.swift \
+    Sources/ExoCameraApp/AgentStatusRenderer.swift scripts/validate-face-anchors.swift \
     -o "$VALIDATION_TMP/face-anchors"
 "$VALIDATION_TMP/face-anchors" "$ROOT/Resources/Overlay/overlay.html"
 xcrun swiftc -parse-as-library -O \
-    -F "$FRAMEWORKS" -framework AICameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
-    Sources/AICameraApp/RealtimeConversationSession.swift scripts/validate-realtime-activation.swift \
+    -F "$FRAMEWORKS" -framework ExoCameraCore -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
+    Sources/ExoCameraApp/RealtimeConversationSession.swift scripts/validate-realtime-activation.swift \
     -o "$VALIDATION_TMP/realtime-activation"
 "$VALIDATION_TMP/realtime-activation"
 xcrun swiftc -parse-as-library -O \
-    -F "$FRAMEWORKS" -framework AICameraCore -framework llama -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
-    Sources/AICameraApp/PipelineCoordinator.swift \
-    Sources/AICameraApp/AudioPipelineController.swift Sources/AICameraApp/PCMBufferConverter.swift \
-    Sources/AICameraApp/TranslationAudioMix.swift \
-    Sources/AICameraApp/SpeechOutputMonitor.swift Sources/AICameraApp/DeviceDiscovery.swift \
-    Sources/AICameraApp/AudioDriverManager.swift Sources/AICameraShared/VirtualCameraConstants.swift \
-    Sources/AICameraShared/MediaDemandState.swift Sources/AICameraApp/BuiltinTranslationClient.swift \
-    Sources/AICameraApp/BuiltinTranslationModelController.swift scripts/validate-realtime-captions.swift \
+    -F "$FRAMEWORKS" -framework ExoCameraCore -framework llama -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
+    Sources/ExoCameraApp/PipelineCoordinator.swift \
+    Sources/ExoCameraApp/AudioPipelineController.swift Sources/ExoCameraApp/PCMBufferConverter.swift \
+    Sources/ExoCameraApp/TranslationAudioMix.swift \
+    Sources/ExoCameraApp/SpeechOutputMonitor.swift Sources/ExoCameraApp/DeviceDiscovery.swift \
+    Sources/ExoCameraApp/AudioDriverManager.swift Sources/ExoCameraShared/VirtualCameraConstants.swift \
+    Sources/ExoCameraShared/MediaDemandState.swift Sources/ExoCameraApp/BuiltinTranslationClient.swift \
+    Sources/ExoCameraApp/BuiltinTranslationModelController.swift scripts/validate-realtime-captions.swift \
     -o "$VALIDATION_TMP/realtime-captions"
 "$VALIDATION_TMP/realtime-captions" --controlled-only
 
 xcrun swiftc -D DEBUG -parse-as-library -O \
-    -F "$FRAMEWORKS" -framework AICameraCore -framework llama -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
-    Sources/AICameraApp/PipelineCoordinator.swift \
-    Sources/AICameraApp/AudioPipelineController.swift Sources/AICameraApp/PCMBufferConverter.swift \
-    Sources/AICameraApp/TranslationAudioMix.swift \
-    Sources/AICameraApp/SpeechOutputMonitor.swift Sources/AICameraApp/DeviceDiscovery.swift \
-    Sources/AICameraApp/AudioDriverManager.swift Sources/AICameraShared/VirtualCameraConstants.swift \
-    Sources/AICameraShared/MediaDemandState.swift Sources/AICameraApp/BuiltinTranslationClient.swift \
-    Sources/AICameraApp/BuiltinTranslationModelController.swift Sources/AICameraApp/LocalTranslationVoice.swift Sources/AICameraApp/SpokenTranslationController.swift \
+    -F "$FRAMEWORKS" -framework ExoCameraCore -framework llama -Xlinker -rpath -Xlinker "$FRAMEWORKS" \
+    Sources/ExoCameraApp/PipelineCoordinator.swift \
+    Sources/ExoCameraApp/AudioPipelineController.swift Sources/ExoCameraApp/PCMBufferConverter.swift \
+    Sources/ExoCameraApp/TranslationAudioMix.swift \
+    Sources/ExoCameraApp/SpeechOutputMonitor.swift Sources/ExoCameraApp/DeviceDiscovery.swift \
+    Sources/ExoCameraApp/AudioDriverManager.swift Sources/ExoCameraShared/VirtualCameraConstants.swift \
+    Sources/ExoCameraShared/MediaDemandState.swift Sources/ExoCameraApp/BuiltinTranslationClient.swift \
+    Sources/ExoCameraApp/BuiltinTranslationModelController.swift Sources/ExoCameraApp/LocalTranslationVoice.swift Sources/ExoCameraApp/SpokenTranslationController.swift \
     scripts/validate-spoken-translation.swift \
     -o "$VALIDATION_TMP/spoken-translation"
 "$VALIDATION_TMP/spoken-translation"

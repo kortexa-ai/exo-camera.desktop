@@ -15,10 +15,10 @@ def inspect_package(package, version, build):
     signature = subprocess.run(["pkgutil", "--check-signature", str(package)],
                                check=True, capture_output=True, text=True).stdout
     assert "Developer ID Installer:" in signature, "Wrong package certificate class"
-    with tempfile.TemporaryDirectory(prefix="aicamera-package-check-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="exocamera-package-check-") as temporary:
         expanded = Path(temporary) / "expanded"
         subprocess.run(["pkgutil", "--expand-full", str(package), str(expanded)], check=True)
-        apps = list(expanded.rglob("AI Camera.app"))
+        apps = list(expanded.rglob("Exo Camera.app"))
         assert len(apps) == 1, "Expected exactly one application in the script payload"
         app = apps[0]
         scripts = app.parent
@@ -28,7 +28,7 @@ def inspect_package(package, version, build):
         package_infos = list(expanded.rglob("PackageInfo"))
         assert len(package_infos) == 1, "Unexpected component count"
         component = ET.parse(package_infos[0]).getroot()
-        assert component.get("identifier") == "ai.kortexa.aicamera.installer"
+        assert component.get("identifier") == "ai.kortexa.exocamera.installer"
         assert component.get("version") == version
         payload = component.find("payload")
         assert payload is None or int(payload.get("numberOfFiles", "0")) == 0, "Package must use the protected transaction only"

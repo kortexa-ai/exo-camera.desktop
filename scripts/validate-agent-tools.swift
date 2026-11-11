@@ -1,4 +1,4 @@
-import AICameraCore
+import ExoCameraCore
 import AppKit
 import CoreImage
 import CoreVideo
@@ -27,9 +27,9 @@ struct AgentToolsValidation {
             let frame = input!
             CIContext().render(CIImage(color: CIColor(red: 0.22, green: 0.27, blue: 0.32))
                 .cropped(to: CGRect(x: 0, y: 0, width: width, height: height)), to: frame)
-            var capture = AICameraConfiguration.default.capture
+            var capture = ExoCameraConfiguration.default.capture
             capture.width = width; capture.height = height; capture.mirrorVideo = false
-            var overlays = AICameraConfiguration.default.overlays
+            var overlays = ExoCameraConfiguration.default.overlays
             overlays.enabled = false
             let renderer = OverlayRenderer()
             let baseline = bytes(renderer.render(input: frame, capture: capture, overlay: overlays, snapshot: .init())!)
@@ -86,7 +86,7 @@ struct AgentToolsValidation {
             // Long captions retain priority over a visual response in both supported fixture sizes.
             overlays.enabled = true; overlays.showStatus = true; overlays.showAgentResponse = true
             overlays.showTranscript = true; overlays.showDetectionBoxes = false; overlays.showGestureLabels = false
-            var scene = SceneSnapshot(status: "AI Camera")
+            var scene = SceneSnapshot(status: "Exo Camera")
             scene.agentResponse = "Here are the main points, while you keep talking with your friend."
             scene.transcript = TranscriptEvent(text: "Synthetic translation caption")
             let withCaptions = bytes(renderer.render(input: frame, capture: capture, overlay: overlays, snapshot: scene)!)
