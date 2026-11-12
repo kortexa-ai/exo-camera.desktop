@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="2">
-  <title>Exo Camera 0.3.0 — Early Alpha</title>
+  <title>Exo Camera 0.3.1 — Early Alpha</title>
   <welcome file="welcome.html" mime-type="text/html"/>
   <license file="LICENSE" mime-type="text/plain"/>
   <conclusion file="conclusion.html" mime-type="text/html"/>
@@ -9,5 +9,5 @@
   <allowed-os-versions><os-version min="14.0"/></allowed-os-versions>
   <choices-outline><line choice="app"/></choices-outline>
   <choice id="app" visible="false" title="Exo Camera"><pkg-ref id="ai.kortexa.exocamera.installer"/></choice>
-  <pkg-ref id="ai.kortexa.exocamera.installer" version="0.3.0" onConclusion="None">Exo Camera Component.pkg</pkg-ref>
+  <pkg-ref id="ai.kortexa.exocamera.installer" version="0.3.1" onConclusion="None">Exo Camera Component.pkg</pkg-ref>
 </installer-gui-script>

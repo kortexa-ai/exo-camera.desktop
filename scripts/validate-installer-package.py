@@ -49,10 +49,38 @@ def inspect_package(package, version, build):
         print(f"Package inspection passed: {result['version']} ({result['build']}), no installation performed.")
 
 
+def inspect_uninstaller(package, product):
+    signature = subprocess.run(["pkgutil", "--check-signature", str(package)],
+                               check=True, capture_output=True, text=True).stdout
+    assert "Developer ID Installer:" in signature, "Wrong package certificate class"
+    source = ROOT / "Resources/Uninstaller"
+    with tempfile.TemporaryDirectory(prefix="exocamera-uninstaller-check-") as temporary:
+        expanded = Path(temporary) / "expanded"
+        subprocess.run(["pkgutil", "--expand-full", str(package), str(expanded)], check=True)
+        package_infos = list(expanded.rglob("PackageInfo"))
+        assert len(package_infos) == 1, "Unexpected component count"
+        component = ET.parse(package_infos[0]).getroot()
+        payload = component.find("payload")
+        assert payload is None or int(payload.get("numberOfFiles", "0")) == 0, "Uninstaller must not carry a payload"
+        assert component.get("postinstall-action", "none").lower() == "none", "Uninstaller must not request a restart"
+        scripts = package_infos[0].parent / "Scripts"
+        assert sorted(p.name for p in scripts.iterdir()) == ["postinstall", "uninstall-product.sh"], "Unexpected scripts"
+        assert (scripts / "postinstall").read_bytes() == (source / product / "postinstall").read_bytes(), "Unexpected postinstall"
+        assert (scripts / "uninstall-product.sh").read_bytes() == (source / "uninstall-product.sh").read_bytes(), "Unexpected removal script"
+        domains = ET.parse(expanded / "Distribution").getroot().find("domains")
+        assert domains.get("enable_anywhere") == "false" and domains.get("enable_currentUserHome") == "false"
+        print(f"Uninstaller inspection passed: {product}, no installation performed.")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("package", type=Path)
-    parser.add_argument("--version", required=True)
-    parser.add_argument("--build", required=True)
+    parser.add_argument("--version")
+    parser.add_argument("--build")
+    parser.add_argument("--uninstaller", choices=["ExoCamera", "AICamera"])
     args = parser.parse_args()
-    inspect_package(args.package.resolve(), args.version, args.build)
+    if args.uninstaller:
+        inspect_uninstaller(args.package.resolve(), args.uninstaller)
+    else:
+        assert args.version and args.build, "--version and --build are required for the app installer"
+        inspect_package(args.package.resolve(), args.version, args.build)

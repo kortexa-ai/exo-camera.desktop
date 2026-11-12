@@ -1,0 +1,14 @@
+#!/bin/bash
+# Removes the legacy AI Camera (0.2.x): host app, microphone driver, install marker, and receipt.
+set -euo pipefail
+export TARGET_VOLUME="${3:-}"
+export PRODUCT_NAME='AI Camera'
+export HOST_APP='/Applications/AI Camera.app'
+export HOST_ID='ai.kortexa.aicamera'
+export HOST_PROCESS='AI Camera'
+export EXTENSION_ID='ai.kortexa.aicamera.camera-extension'
+export DRIVER_PATH='/Library/Audio/Plug-Ins/HAL/AICameraAudioDriver.driver'
+export DRIVER_ID='ai.kortexa.aicamera.audio.driver'
+export MARKER_DIR='/Library/Application Support/AI Camera'
+export RECEIPT_ID='ai.kortexa.aicamera.installer'
+exec /bin/bash "$(dirname -- "$0")/uninstall-product.sh"

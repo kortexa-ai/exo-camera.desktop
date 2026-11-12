@@ -91,7 +91,30 @@ pkgutil --check-signature "$RELEASE_PACKAGE"
 spctl --assess --type install --verbose=2 "$RELEASE_PACKAGE"
 python3 scripts/verify-release.py "$RELEASE_APP" --version "$RELEASE_VERSION" --build "$RELEASE_BUILD" \
     > "$RELEASE_OUTPUT/app-verification.json"
+
+# Payload-free uninstallers let a regular user remove the protected app with Installer and
+# a password prompt. They must be signed by the same team as the app they remove.
+build_uninstaller() {
+    local product="$1" name="$2" identifier="$3" output="$4" work="$RELEASE_OUTPUT/uninstaller-$1"
+    mkdir -p "$work/scripts" "$work/resources"
+    cp "Resources/Uninstaller/$product/postinstall" Resources/Uninstaller/uninstall-product.sh "$work/scripts/"
+    chmod 755 "$work/scripts/postinstall" "$work/scripts/uninstall-product.sh"
+    cp "Resources/Uninstaller/$product/welcome.html" "Resources/Uninstaller/$product/conclusion.html" "$work/resources/"
+    pkgbuild --nopayload --scripts "$work/scripts" --identifier "$identifier" --version 1 \
+        --sign "$INSTALLER_IDENTITY" --timestamp "$work/$name Uninstaller Component.pkg"
+    productbuild --distribution "Resources/Uninstaller/$product/Distribution.xml" --resources "$work/resources" \
+        --package-path "$work" --sign "$INSTALLER_IDENTITY" --timestamp "$RELEASE_OUTPUT/$output"
+    python3 scripts/validate-installer-package.py "$RELEASE_OUTPUT/$output" --uninstaller "$product"
+    notarize "$RELEASE_OUTPUT/$output" "uninstaller-$product"
+    xcrun stapler staple "$RELEASE_OUTPUT/$output"
+    xcrun stapler validate "$RELEASE_OUTPUT/$output"
+    spctl --assess --type install --verbose=2 "$RELEASE_OUTPUT/$output"
+}
+EXO_UNINSTALLER="Uninstall-ExoCamera-$RELEASE_VERSION.pkg"
+LEGACY_UNINSTALLER="Uninstall-AICamera-$RELEASE_VERSION.pkg"
+build_uninstaller ExoCamera "Exo Camera" ai.kortexa.exocamera.uninstaller "$EXO_UNINSTALLER"
+build_uninstaller AICamera "AI Camera" ai.kortexa.aicamera.uninstaller "$LEGACY_UNINSTALLER"
 cp "docs/releases/$RELEASE_VERSION.md" "$RELEASE_OUTPUT/RELEASE-NOTES.md"
 cp NOTICE "$RELEASE_OUTPUT/NOTICE"
-(cd "$RELEASE_OUTPUT" && shasum -a 256 "ExoCamera-$RELEASE_VERSION.pkg" > SHA256SUMS)
+(cd "$RELEASE_OUTPUT" && shasum -a 256 "ExoCamera-$RELEASE_VERSION.pkg" "$EXO_UNINSTALLER" "$LEGACY_UNINSTALLER" > SHA256SUMS)
 echo "Verified and notarized: $RELEASE_PACKAGE"

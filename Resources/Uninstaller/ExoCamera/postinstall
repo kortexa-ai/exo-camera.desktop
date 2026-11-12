@@ -1,0 +1,14 @@
+#!/bin/bash
+# Removes Exo Camera: host app, microphone driver, install marker, and receipt.
+set -euo pipefail
+export TARGET_VOLUME="${3:-}"
+export PRODUCT_NAME='Exo Camera'
+export HOST_APP='/Applications/Exo Camera.app'
+export HOST_ID='ai.kortexa.exocamera'
+export HOST_PROCESS='Exo Camera'
+export EXTENSION_ID='ai.kortexa.exocamera.camera-extension'
+export DRIVER_PATH='/Library/Audio/Plug-Ins/HAL/ExoCameraAudioDriver.driver'
+export DRIVER_ID='ai.kortexa.exocamera.audio.driver'
+export MARKER_DIR='/Library/Application Support/Exo Camera'
+export RECEIPT_ID='ai.kortexa.exocamera.installer'
+exec /bin/bash "$(dirname -- "$0")/uninstall-product.sh"

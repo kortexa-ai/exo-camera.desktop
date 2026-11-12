@@ -11,6 +11,9 @@ new app, extension, app-group, driver, and device identities (`ai.kortexa.exocam
 move of the former support folder and Keychain item, and repository `kortexa-ai/exo-camera.desktop`.
 The website moves from GitHub Pages to [exo.camera](https://exo.camera) (`kortexa-ai/exo.camera`,
 served on Smarty). Exo Camera installs beside AI Camera; users remove the legacy app and devices.
+0.3.1 adds signed, payload-free uninstaller packages for Exo Camera and the legacy AI Camera.
+macOS App Management blocks Finder, `sudo`, and unsigned removal of the locked app, so user-facing
+docs use only Installer packages and in-app device removal.
 
 ## Public early alpha 0.2.0
 

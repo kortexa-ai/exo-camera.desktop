@@ -40,12 +40,18 @@ an offline ticket. Apple's installer submission also scans its nested code.
 Each run writes to a new ignored `build/release-<version>.*` directory. Keep its source commit,
 notary results/logs, signature verification, and final checksum with the acceptance evidence.
 Do not upload the archive, export options, or intermediate signing/build logs as release assets.
-Distribute only the final `ExoCamera-<version>.pkg`, `SHA256SUMS`, release notes, and required notices.
+Distribute only the final `ExoCamera-<version>.pkg`, `Uninstall-ExoCamera-<version>.pkg`,
+`Uninstall-AICamera-<version>.pkg`, `SHA256SUMS`, release notes, and required notices.
 
 The package carries the app in its private script payload and invokes the exact same protected
 replacement transaction as `scripts/install-app.sh`. It installs only the host in `/Applications`.
 It never activates/removes an extension, copies a driver into HAL, reloads Core Audio, launches
 capture, or requests a reboot. macOS Installer provides the administrator authorization UI.
+
+The two uninstallers are signed, payload-free packages built from `Resources/Uninstaller`. They refuse
+to run while their camera extension is still registered, then remove only the identity-checked
+host app, HAL driver, generation marker, and receipt. They keep user settings. They must be signed
+by the same team as the app, because macOS App Management blocks every other remover.
 
 ## Acceptance and publication
 
@@ -70,4 +76,4 @@ published tag or replacing an installer silently; publish a new version for chan
 
 Keep the prior known-good signed installer. Reinstall the same release to repair a failed host
 replacement; use a deliberately versioned follow-up for an upgrade fix. Do not force-clean an active
-system extension. User-facing fallback steps are in [installation.md](installation.md#manual-cleanup).
+system extension. User-facing removal steps are in [installation.md](installation.md#remove-exo-camera).

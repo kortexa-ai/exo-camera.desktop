@@ -6,13 +6,13 @@ Live captions, translation, gestures, and a voice agent in the camera feed you s
 people. Exo Camera is a native macOS menu-bar app that provides **Exo Camera** and
 **Exo Camera Microphone** as virtual devices for your call or recording app.
 
-[Download 0.3.0 early alpha](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.0) ·
+[Download 0.3.1 early alpha](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.1) ·
 [Website](https://exo.camera/) ·
 [Install or remove](docs/installation.md) ·
 [Report an issue](https://github.com/kortexa-ai/exo-camera.desktop/issues)
 
 > **Early alpha:** expect rough edges. Start with a nonessential call. Keep these
-> [recovery and manual cleanup instructions](docs/installation.md#manual-cleanup) handy.
+> [repair and removal instructions](docs/installation.md#repair) handy.
 
 ## What it does
 
@@ -30,7 +30,7 @@ people. Exo Camera is a native macOS menu-bar app that provides **Exo Camera** a
 
 ## Get started
 
-1. Download and open the signed `ExoCamera-0.3.0.pkg`, then follow macOS Installer.
+1. Download and open the signed `ExoCamera-0.3.1.pkg`, then follow macOS Installer.
 2. Open **Exo Camera** from Applications and click its icon in the menu bar.
 3. Install the virtual camera and, optionally, virtual microphone from the app. Follow the
    macOS permission and Media Extension prompts. A system-component change can require a restart.
@@ -85,12 +85,12 @@ scripts/validate.sh
 Validation runs unit tests and an unsigned app/framework/extension/audio-driver build. It never
 installs or activates system software. Signed device development requires your own Apple team and
 profiles in the ignored `Config/Local.xcconfig`; see [contributing](CONTRIBUTING.md) and
-[signing and installation](docs/installation.md#building-and-signing).
+[development builds](docs/development.md).
 
 ## Documentation
 
 - [Settings and quick controls](docs/configuration.md)
-- [Installation, repair, and manual cleanup](docs/installation.md)
+- [Installation, repair, and removal](docs/installation.md)
 - [Local models and download provenance](docs/local-models.md)
 - [Codex authentication boundaries](docs/codex-login.md)
 - [Architecture](docs/architecture.md) and [security/privacy](SECURITY.md)
