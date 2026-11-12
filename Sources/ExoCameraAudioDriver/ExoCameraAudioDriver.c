@@ -120,6 +120,13 @@ static Boolean								gBox_Acquired					= true;
 
 #define										kDevice_UID						"ai.kortexa.exocamera.audio.device"
 #define										kDevice_ModelUID				"ai.kortexa.exocamera.audio.model"
+
+//	Call apps built on WhatsApp's Mac audio stack (WhatsApp for Mac 26.x, mac_audio_hardware.mm)
+//	drop every device whose transport is Virtual, Aggregate, or 0 before listing microphones.
+//	Report PCI so those apps list Exo Camera Microphone; other transports they recognize
+//	(USB, Bluetooth, built-in, ...) change how they treat the device. The host app identifies
+//	this device by kDevice_UID, never by transport type.
+#define										kDevice_TransportType			kAudioDeviceTransportTypePCI
 #define										kCompanionHost_BundleID		"ai.kortexa.exocamera"
 #define										kExoCameraDevicePropertyConsumerCount ((AudioObjectPropertySelector)0x61696363U)
 static pthread_mutex_t						gDevice_IOMutex					= PTHREAD_MUTEX_INITIALIZER;
@@ -1764,7 +1771,7 @@ static OSStatus	ExoCameraAudioDriver_GetBoxPropertyData(AudioServerPlugInDriverR
 			//	any 32 bit integer, but common values for this property are defined in
 			//	<CoreAudio/AudioHardwareBase.h>
 			FailWithAction(inDataSize < sizeof(UInt32), theAnswer = kAudioHardwareBadPropertySizeError, Done, "ExoCameraAudioDriver_GetBoxPropertyData: not enough space for the return value of kAudioDevicePropertyTransportType for the box");
-			*((UInt32*)outData) = kAudioDeviceTransportTypeVirtual;
+			*((UInt32*)outData) = kDevice_TransportType;
 			*outDataSize = sizeof(UInt32);
 			break;
 
@@ -2377,8 +2384,9 @@ static OSStatus	ExoCameraAudioDriver_GetDevicePropertyData(AudioServerPlugInDriv
 			//	This value represents how the device is attached to the system. This can be
 			//	any 32 bit integer, but common values for this property are defined in
 			//	<CoreAudio/AudioHardwareBase.h>
+			//	Exo Camera reports kDevice_TransportType instead of Virtual; see its definition.
 			FailWithAction(inDataSize < sizeof(UInt32), theAnswer = kAudioHardwareBadPropertySizeError, Done, "ExoCameraAudioDriver_GetDevicePropertyData: not enough space for the return value of kAudioDevicePropertyTransportType for the device");
-			*((UInt32*)outData) = kAudioDeviceTransportTypeVirtual;
+			*((UInt32*)outData) = kDevice_TransportType;
 			*outDataSize = sizeof(UInt32);
 			break;
 

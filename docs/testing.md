@@ -69,7 +69,10 @@ Use a signed app installed in `/Applications`.
 6. Repeat with multiple readers and confirm capture remains active until the final reader closes. Exercise microphone-only use and confirm no physical camera acquisition.
 7. Confirm microphone passthrough, complete-WAV speech, opt-in streaming PCM speech, and barge-in. With transcription off, confirm passthrough and energy-based barge-in still work but no ASR request is sent.
 8. Revoke microphone permission while active and confirm capture stops. Test **Repair** when an installed bundle has not loaded.
-9. Remove the driver and confirm that the device disappears after Core Audio reloads.
+9. Confirm WhatsApp for Mac lists **Exo Camera Microphone** in its microphone picker and that the
+   far end hears the mix. WhatsApp hides devices whose transport type is Virtual, so the driver
+   reports PCI; the host must still offer it as the publishing destination.
+10. Remove the driver and confirm that the device disappears after Core Audio reloads.
 
 ### Base mode and login
 

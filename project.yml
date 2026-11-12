@@ -22,8 +22,8 @@ settings:
   base:
     SWIFT_VERSION: "5.10"
     MACOSX_DEPLOYMENT_TARGET: "14.0"
-    MARKETING_VERSION: "0.3.1"
-    CURRENT_PROJECT_VERSION: "59"
+    MARKETING_VERSION: "0.3.2"
+    CURRENT_PROJECT_VERSION: "60"
     CODE_SIGN_STYLE: Automatic
     CLANG_ENABLE_MODULES: true
   configs:
@@ -132,8 +132,8 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ai.kortexa.exocamera.audio.driver
         PRODUCT_NAME: ExoCameraAudioDriver
-        CURRENT_PROJECT_VERSION: "13"
-        MARKETING_VERSION: "0.2.0"
+        CURRENT_PROJECT_VERSION: "14"
+        MARKETING_VERSION: "0.2.1"
         INFOPLIST_FILE: Resources/AudioDriver/Info.plist
         GENERATE_INFOPLIST_FILE: false
         WRAPPER_EXTENSION: driver

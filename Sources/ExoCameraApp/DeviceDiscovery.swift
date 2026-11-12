@@ -162,9 +162,13 @@ enum DeviceDiscovery {
     }
 
     static func isDuplexVirtualAudioDevice(_ deviceID: AudioDeviceID) -> Bool {
-        hasStreams(deviceID: deviceID, scope: kAudioDevicePropertyScopeInput)
-            && hasStreams(deviceID: deviceID, scope: kAudioDevicePropertyScopeOutput)
-            && transportType(deviceID: deviceID) == kAudioDeviceTransportTypeVirtual
+        VirtualMicrophonePolicy.isPublishingDestination(
+            uid: stringProperty(kAudioDevicePropertyDeviceUID, deviceID: deviceID),
+            ownDeviceUID: ExoCameraAudioDevice.uid,
+            hasInputStreams: hasStreams(deviceID: deviceID, scope: kAudioDevicePropertyScopeInput),
+            hasOutputStreams: hasStreams(deviceID: deviceID, scope: kAudioDevicePropertyScopeOutput),
+            transportType: transportType(deviceID: deviceID)
+        )
     }
 
     static func exoCameraCameraDemandSnapshot() -> ExoCameraCameraDemandSnapshot? {

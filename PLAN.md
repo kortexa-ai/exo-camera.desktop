@@ -14,6 +14,9 @@ served on Smarty). Exo Camera installs beside AI Camera; users remove the legacy
 0.3.1 adds signed, payload-free uninstaller packages for Exo Camera and the legacy AI Camera.
 macOS App Management blocks Finder, `sudo`, and unsigned removal of the locked app, so user-facing
 docs use only Installer packages and in-app device removal.
+0.3.2 makes Exo Camera Microphone visible to WhatsApp for Mac, which hides Virtual-transport
+devices ([#75](https://github.com/kortexa-ai/exo-camera.desktop/issues/75)): the driver reports PCI
+and the host recognizes its own loopback by UID.
 
 ## Public early alpha 0.2.0
 
