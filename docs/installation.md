@@ -3,13 +3,12 @@
 Exo Camera 0.3.2 is an **early alpha**. Everything here uses normal Mac steps: open a package,
 click through macOS Installer, and enter your password when macOS asks. You don't need Terminal.
 
-Each [release](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.2) has three packages:
+Each [release](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.2) has two packages:
 
 | Package | What it does |
 |---|---|
 | `ExoCamera-0.3.2.pkg` | Installs or upgrades Exo Camera in Applications. |
 | `Uninstall-ExoCamera-0.3.2.pkg` | Removes Exo Camera. |
-| `Uninstall-AICamera-0.3.2.pkg` | Removes the old AI Camera app after you move to Exo Camera. |
 
 ## Install or upgrade
 
@@ -43,7 +42,9 @@ To remove AI Camera:
 1. Open AI Camera. In **Settings → General → Virtual Devices**, choose **Remove** for the camera and
    the microphone. Turn off **Open AI Camera at login**, then choose **Quit** in its menu panel.
 2. If AI Camera says the camera removal needs a restart, restart your Mac.
-3. Open `Uninstall-AICamera-0.3.2.pkg` and enter your password. It removes the AI Camera app,
+3. Download `Uninstall-AICamera.pkg` from the
+   [AI Camera Uninstaller release](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/uninstall-aicamera),
+   open it, and enter your password. It removes the AI Camera app,
    its microphone driver if one is left, and its installation records.
 4. Select **Exo Camera** and **Exo Camera Microphone** in your call apps.
 

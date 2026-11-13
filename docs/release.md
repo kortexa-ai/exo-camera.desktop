@@ -41,7 +41,8 @@ Each run writes to a new ignored `build/release-<version>.*` directory. Keep its
 notary results/logs, signature verification, and final checksum with the acceptance evidence.
 Do not upload the archive, export options, or intermediate signing/build logs as release assets.
 Distribute only the final `ExoCamera-<version>.pkg`, `Uninstall-ExoCamera-<version>.pkg`,
-`Uninstall-AICamera-<version>.pkg`, `SHA256SUMS`, release notes, and required notices.
+`SHA256SUMS`, release notes, and required notices. The legacy `Uninstall-AICamera.pkg` lives in
+the standalone `uninstall-aicamera` release and is not part of Exo Camera releases.
 
 The package carries the app in its private script payload and invokes the exact same protected
 replacement transaction as `scripts/install-app.sh`. It installs only the host in `/Applications`.

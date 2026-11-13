@@ -111,10 +111,11 @@ build_uninstaller() {
     spctl --assess --type install --verbose=2 "$RELEASE_OUTPUT/$output"
 }
 EXO_UNINSTALLER="Uninstall-ExoCamera-$RELEASE_VERSION.pkg"
-LEGACY_UNINSTALLER="Uninstall-AICamera-$RELEASE_VERSION.pkg"
 build_uninstaller ExoCamera "Exo Camera" ai.kortexa.exocamera.uninstaller "$EXO_UNINSTALLER"
-build_uninstaller AICamera "AI Camera" ai.kortexa.aicamera.uninstaller "$LEGACY_UNINSTALLER"
+# The legacy AI Camera uninstaller ships once, in the standalone `uninstall-aicamera` release,
+# not with every Exo Camera release. To rebuild it, call:
+#   build_uninstaller AICamera "AI Camera" ai.kortexa.aicamera.uninstaller Uninstall-AICamera.pkg
 cp "docs/releases/$RELEASE_VERSION.md" "$RELEASE_OUTPUT/RELEASE-NOTES.md"
 cp NOTICE "$RELEASE_OUTPUT/NOTICE"
-(cd "$RELEASE_OUTPUT" && shasum -a 256 "ExoCamera-$RELEASE_VERSION.pkg" "$EXO_UNINSTALLER" "$LEGACY_UNINSTALLER" > SHA256SUMS)
+(cd "$RELEASE_OUTPUT" && shasum -a 256 "ExoCamera-$RELEASE_VERSION.pkg" "$EXO_UNINSTALLER" > SHA256SUMS)
 echo "Verified and notarized: $RELEASE_PACKAGE"
