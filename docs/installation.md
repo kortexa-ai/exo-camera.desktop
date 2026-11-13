@@ -1,20 +1,20 @@
 # Install, repair, and remove Exo Camera
 
-Exo Camera 0.3.1 is an **early alpha**. Everything here uses normal Mac steps: open a package,
+Exo Camera 0.3.2 is an **early alpha**. Everything here uses normal Mac steps: open a package,
 click through macOS Installer, and enter your password when macOS asks. You don't need Terminal.
 
-Each [release](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.1) has three packages:
+Each [release](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.2) has three packages:
 
 | Package | What it does |
 |---|---|
-| `ExoCamera-0.3.1.pkg` | Installs or upgrades Exo Camera in Applications. |
-| `Uninstall-ExoCamera-0.3.1.pkg` | Removes Exo Camera. |
-| `Uninstall-AICamera-0.3.1.pkg` | Removes the old AI Camera app after you move to Exo Camera. |
+| `ExoCamera-0.3.2.pkg` | Installs or upgrades Exo Camera in Applications. |
+| `Uninstall-ExoCamera-0.3.2.pkg` | Removes Exo Camera. |
+| `Uninstall-AICamera-0.3.2.pkg` | Removes the old AI Camera app after you move to Exo Camera. |
 
 ## Install or upgrade
 
-1. Download `ExoCamera-0.3.1.pkg` from [exo.camera](https://exo.camera) or the
-   [GitHub release](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.1).
+1. Download `ExoCamera-0.3.2.pkg` from [exo.camera](https://exo.camera) or the
+   [GitHub release](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.2).
 2. Close calls and Exo Camera Preview tests. Open the package and follow macOS Installer.
    It asks for your password and installs on your startup disk.
 3. Open **Exo Camera** in Applications. Its camera icon appears in the menu bar.
@@ -43,7 +43,7 @@ To remove AI Camera:
 1. Open AI Camera. In **Settings → General → Virtual Devices**, choose **Remove** for the camera and
    the microphone. Turn off **Open AI Camera at login**, then choose **Quit** in its menu panel.
 2. If AI Camera says the camera removal needs a restart, restart your Mac.
-3. Open `Uninstall-AICamera-0.3.1.pkg` and enter your password. It removes the AI Camera app,
+3. Open `Uninstall-AICamera-0.3.2.pkg` and enter your password. It removes the AI Camera app,
    its microphone driver if one is left, and its installation records.
 4. Select **Exo Camera** and **Exo Camera Microphone** in your call apps.
 
@@ -71,7 +71,7 @@ Exo Camera removes its own camera, and the uninstaller removes the rest:
 3. In **Settings → General → Virtual Devices**, choose **Remove** for the camera and the
    microphone, and follow the macOS prompts.
 4. If Exo Camera says the camera removal needs a restart, restart your Mac first.
-5. Open `Uninstall-ExoCamera-0.3.1.pkg` and enter your password. It quits Exo Camera if it is
+5. Open `Uninstall-ExoCamera-0.3.2.pkg` and enter your password. It quits Exo Camera if it is
    running, then removes the app, its microphone driver if one is left, and its installation records.
 6. Reopen your call apps so their camera and microphone lists refresh.
 

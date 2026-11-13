@@ -6,7 +6,7 @@ Live captions, translation, gestures, and a voice agent in the camera feed you s
 people. Exo Camera is a native macOS menu-bar app that provides **Exo Camera** and
 **Exo Camera Microphone** as virtual devices for your call or recording app.
 
-[Download 0.3.1 early alpha](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.1) ·
+[Download 0.3.2 early alpha](https://github.com/kortexa-ai/exo-camera.desktop/releases/tag/v0.3.2) ·
 [Website](https://exo.camera/) ·
 [Install or remove](docs/installation.md) ·
 [Report an issue](https://github.com/kortexa-ai/exo-camera.desktop/issues)
@@ -30,7 +30,7 @@ people. Exo Camera is a native macOS menu-bar app that provides **Exo Camera** a
 
 ## Get started
 
-1. Download and open the signed `ExoCamera-0.3.1.pkg`, then follow macOS Installer.
+1. Download and open the signed `ExoCamera-0.3.2.pkg`, then follow macOS Installer.
 2. Open **Exo Camera** from Applications and click its icon in the menu bar.
 3. Install the virtual camera and, optionally, virtual microphone from the app. Follow the
    macOS permission and Media Extension prompts. A system-component change can require a restart.
